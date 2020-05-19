@@ -1,0 +1,58 @@
+[
+  {
+    "name": "Choc-a-block",
+    "image": "./images/product-list/list-cookie-01.png",
+    "amount": 25,
+    "quantity": 1,
+    "description": ""
+  },
+  {
+    "name": "Oatmeal shortbread",
+    "image": "./images/product-list/list-cookie-02.png",
+    "amount": 30,
+    "quantity": 1,
+    "description": ""
+  },
+  {
+    "name": "Foxtail millet",
+    "image": "./images/product-list/list-cookie-03.png",
+    "amount": 35,
+    "quantity": 1,
+    "description": ""
+  },
+  {
+    "name": "Pista nut",
+    "image": "./images/product-list/list-cookie-04.png",
+    "amount": 35,
+    "quantity": 1,
+    "description": ""
+  },
+  {
+    "name": "Choc-a-block",
+    "image": "./images/product-list/list-cookie-01.png",
+    "amount": 25,
+    "quantity": 1,
+    "description": ""
+  },
+  {
+    "name": "Oatmeal shortbread",
+    "image": "./images/product-list/list-cookie-02.png",
+    "amount": 30,
+    "quantity": 1,
+    "description": ""
+  },
+  {
+    "name": "Foxtail millet",
+    "image": "./images/product-list/list-cookie-03.png",
+    "amount": 35,
+    "quantity": 1,
+    "description": ""
+  },
+  {
+    "name": "Pista nut",
+    "image": "./images/product-list/list-cookie-04.png",
+    "amount": 35,
+    "quantity": 1,
+    "description": ""
+  }
+]
