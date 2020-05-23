@@ -1,58 +1,69 @@
-[
-  {
-    "name": "Choc-a-block",
-    "image": "./images/product-list/list-cookie-01.png",
-    "amount": 25,
-    "quantity": 1,
-    "description": ""
-  },
-  {
-    "name": "Oatmeal shortbread",
-    "image": "./images/product-list/list-cookie-02.png",
-    "amount": 30,
-    "quantity": 1,
-    "description": ""
-  },
-  {
-    "name": "Foxtail millet",
-    "image": "./images/product-list/list-cookie-03.png",
-    "amount": 35,
-    "quantity": 1,
-    "description": ""
-  },
-  {
-    "name": "Pista nut",
-    "image": "./images/product-list/list-cookie-04.png",
-    "amount": 35,
-    "quantity": 1,
-    "description": ""
-  },
-  {
-    "name": "Choc-a-block",
-    "image": "./images/product-list/list-cookie-01.png",
-    "amount": 25,
-    "quantity": 1,
-    "description": ""
-  },
-  {
-    "name": "Oatmeal shortbread",
-    "image": "./images/product-list/list-cookie-02.png",
-    "amount": 30,
-    "quantity": 1,
-    "description": ""
-  },
-  {
-    "name": "Foxtail millet",
-    "image": "./images/product-list/list-cookie-03.png",
-    "amount": 35,
-    "quantity": 1,
-    "description": ""
-  },
-  {
-    "name": "Pista nut",
-    "image": "./images/product-list/list-cookie-04.png",
-    "amount": 35,
-    "quantity": 1,
-    "description": ""
-  }
-]
+{
+  "products":
+  [
+    {
+      "name": "Choc-a-block",
+      "image": "./images/product-list/list-cookie-01.png",
+      "imageLarge": "",
+      "price": 25,
+      "boxPrice": 250,
+      "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam expedita, corrupti tempora vitae quam repellat, natus, quasi voluptas sed ab nostrum veritatis incidunt fugit assumenda illo deserunt doloremque quos pariatur!"
+    },
+    {
+      "name": "Oatmeal shortbread",
+      "image": "./images/product-list/list-cookie-02.png",
+      "imageLarge": "",
+      "price": 30,
+      "boxPrice": 300,
+      "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam expedita, corrupti tempora vitae quam repellat, natus, quasi voluptas sed ab nostrum veritatis incidunt fugit assumenda illo deserunt doloremque quos pariatur!"
+    },
+    {
+      "name": "Foxtail millet",
+      "image": "./images/product-list/list-cookie-03.png",
+      "imageLarge": "",
+      "price": 35,
+      "boxPrice": 350,
+      "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam expedita, corrupti tempora vitae quam repellat, natus, quasi voluptas sed ab nostrum veritatis incidunt fugit assumenda illo deserunt doloremque quos pariatur!"
+    },
+    {
+      "name": "Pista nut",
+      "image": "./images/product-list/list-cookie-04.png",
+      "imageLarge": "",
+      "price": 35,
+      "boxPrice": 350,
+      "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam expedita, corrupti tempora vitae quam repellat, natus, quasi voluptas sed ab nostrum veritatis incidunt fugit assumenda illo deserunt doloremque quos pariatur!"
+    },
+    {
+      "name": "Choc-a-block",
+      "image": "./images/product-list/list-cookie-01.png",
+      "imageLarge": "",
+      "price": 25,
+      "boxPrice": 250,
+      "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam expedita, corrupti tempora vitae quam repellat, natus, quasi voluptas sed ab nostrum veritatis incidunt fugit assumenda illo deserunt doloremque quos pariatur!"
+    },
+    {
+      "name": "Oatmeal shortbread",
+      "image": "./images/product-list/list-cookie-02.png",
+      "imageLarge": "",
+      "price": 30,
+      "boxPrice": 300,
+      "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam expedita, corrupti tempora vitae quam repellat, natus, quasi voluptas sed ab nostrum veritatis incidunt fugit assumenda illo deserunt doloremque quos pariatur!"
+    },
+    {
+      "name": "Foxtail millet",
+      "image": "./images/product-list/list-cookie-03.png",
+      "imageLarge": "",
+      "price": 35,
+      "boxPrice": 250,
+      "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam expedita, corrupti tempora vitae quam repellat, natus, quasi voluptas sed ab nostrum veritatis incidunt fugit assumenda illo deserunt doloremque quos pariatur!"
+    },
+    {
+      "name": "Pista nut",
+      "image": "./images/product-list/list-cookie-04.png",
+      "imageLarge": "",
+      "price": 35,
+      "boxPrice": 250,
+      "description": "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veniam expedita, corrupti tempora vitae quam repellat, natus, quasi voluptas sed ab nostrum veritatis incidunt fugit assumenda illo deserunt doloremque quos pariatur!"
+    }
+  ]
+}
