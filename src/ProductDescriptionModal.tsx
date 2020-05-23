@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import ProductControls from './ProductControls';
 
 interface ModalPropTypes {
   id: string,
+  inputId: string,
   name: string,
   image: string,
   price: number,
@@ -39,26 +41,9 @@ const ProductDescriptionModal = (props:ModalPropTypes): JSX.Element => {
         <div className="modal-content">
           <h3 className="product-title">{props.name}</h3>
           <p className="product-description">{props.description}</p>
-          <div className="product-details">
-            <p className="product-cost">Rs.{props.price * props.selectedQuantity}</p>
-            <div className="product-quantity">
-              <input type="number" name="modal-quantity" 
-              id="modal-quantity" min="1" max="18" 
-              defaultValue={props.selectedQuantity} 
-              onChange={(e) => {
-                if(typeof handler === 'function') {
-                  handler(Number(e.target.value))
-                } else {
-                  throw new Error('Expected handler prop to be a function.');
-                }
-              }} />
-              {props.type}
-              {props.type === 'pc' && props.selectedQuantity > 1 ? 's' : (
-                props.type === 'box' && props.selectedQuantity > 1 ? 'es' : ''
-                )}
-            </div>
-            <button className="btn-add">Add</button>
-          </div> 
+          <ProductControls inputId={props.inputId} 
+          type={props.type} price={props.price} 
+          quantity={props.selectedQuantity} handler={handler} />
         </div>
       </div>
     </>

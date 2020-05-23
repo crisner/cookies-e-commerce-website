@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye } from '@fortawesome/free-regular-svg-icons';
 import ProductDescriptionModal from './ProductDescriptionModal';
+import ProductControls from './ProductControls';
 
 interface ProductListItemType {
   id: string,
@@ -37,25 +38,14 @@ const ProductListItem = (props: ProductListItemType): JSX.Element => {
         
         <div className="product-footer">
           <h3 className="product-title">{props.name}</h3>
-          <div className="product-details">
-            <p className="product-cost">Rs.{props.price * quantity}</p>
-            <div className="product-quantity">
-            <input type="number" name="modal-quantity" 
-              id="modal-quantity" min="1" max="18" 
-              defaultValue="1" 
-              value={quantity}
-              onChange={(e) => setQuantity(Number(e.target.value))} />
-            {props.type}
-            {props.type === 'pc' && quantity > 1 ? 's' : (
-              props.type === 'box' && quantity > 1 ? 'es' : ''
-              )}</div>
-            <button className="btn-add">Add</button>
-          </div> 
+          <ProductControls inputId="product-quantity" 
+          type={props.type} price={props.price} quantity={quantity} handler={dataHandler} />
         </div>
       </div>
       {modal ? (
         <ProductDescriptionModal 
         id={props.id}
+        inputId="modal-quantity"
         name={props.name} 
         image={props.image} 
         price={props.price} 
