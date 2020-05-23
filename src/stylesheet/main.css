@@ -327,6 +327,44 @@ main .order-now .text {
   grid-row: span 1;
   grid-column: span 1;
   box-shadow: 0px 0px 2px #23232340;
+  overflow: hidden;
+}
+
+
+.product-image-container {
+  overflow: hidden;
+}
+
+.product-list-item .product-image {
+  cursor: pointer;
+  transition: transform .3s ease 0s;
+}
+
+.product-list-item .view-product-info {
+  display: none;
+  opacity: 0;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  z-index: 1;
+  background-color: #00000066;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.product-list-item .view-icon {
+  font-size: 3rem;
+  color: #fcf6f2;
+}
+
+.product-image-container:hover .product-image{
+  transform: scale(1.1);
+  transition: transform .3s ease 0s;
+}
+
+.product-image-container:hover .view-product-info {
+  display: flex;
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
 }
 
 .product-image {
@@ -353,16 +391,23 @@ main .order-now .text {
   margin: 0;
 }
 
-.product-quantity {
-  margin-left: -6rem;
+.product-cost {
+  width: 4.5rem;
 }
 
-.product-quantity select {
+.product-quantity {
+  width: 7rem;
+  margin-left: -3rem;
+}
+
+.product-quantity input {
+  width: 2.5rem;
   margin: 0 0.5rem;
   border-radius: 6px;
   font-family: 'Open Sans', sans-serif;
   font-size: 0.9rem;
   font-weight: 500;
+  text-align: right;
   border: 2px solid #ce6d52;
   box-shadow: 0px 1px 1px #23232352;
 }
@@ -378,5 +423,66 @@ main .order-now .text {
   letter-spacing: 0.1rem;
   border: none;
   padding: 0.4rem 0.6rem;
-  box-shadow: 0px 1px 2px #23232361;
+  box-shadow: 0px 1px 1px #2323232e;
+  cursor: pointer;
+}
+
+/* ------------------------- */
+/* --------- Modal --------- */
+/* ------------------------- */
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 50%;
+  height: 60%;
+  background-color: #fcf6f2;
+  z-index: 2;
+}
+
+.modal-image {
+  background-size: cover;
+  width: 50%;
+}
+
+.modal-content {
+  width: 40%;
+  padding: 5%;
+}
+
+.modal .product-title {
+  text-transform: uppercase;
+}
+
+.modal .product-description {
+  font-family: 'Open Sans', sans-serif;
+  letter-spacing: 0.01rem;
+  margin: 2rem 0;
+}
+
+.modal .product-details {
+  margin: 2rem 0;
+}
+
+.modal-close {
+  position: fixed;
+  top: -6rem;
+  right: -6rem;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 2.5rem;
+  color: #fcf6f287;
+}
+
+.modal-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #4f47419e;
+  z-index: 2;
 }
