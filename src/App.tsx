@@ -1,17 +1,30 @@
-import React, {Fragment} from 'react';
+import React from 'react';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from "react-router-dom";
 import Header from './Header';
 import Footer from './Footer';
 import Home from './Home';
 import Products from './Products';
 
 const App = (): JSX.Element => (
-  <Fragment>
+  <Router>
     <Header />
-    {/* <Home /> */}
-    <Products />
-
+    <Switch>
+      <Route path="/build-a-box">
+        <Products box={true} />
+      </Route>
+      <Route path="/cookies">
+        <Products box={false} />
+      </Route>
+      <Route path="/">
+        <Home />
+      </Route>
+    </Switch>
     <Footer />
-  </Fragment>
+  </Router>
 )
 
 export default App;
