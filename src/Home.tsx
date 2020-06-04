@@ -2,7 +2,6 @@ import React from 'react';
 import Hero from './Hero';
 import Collections from './Collections';
 import CTASection from './CTASection';
-import Footer from './Footer';
 
 const Home = () : JSX.Element => (
   <main>

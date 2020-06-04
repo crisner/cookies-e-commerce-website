@@ -14,7 +14,6 @@ const ProductControls = (props: ProductControlsProps) => (
     <div className="product-quantity">
     <input type="number" name={props.inputId} 
       id={props.inputId} min="1" max="18" 
-      defaultValue="1" 
       value={props.quantity}
       onChange={(e) => {
         if(typeof props.handler === 'function') {

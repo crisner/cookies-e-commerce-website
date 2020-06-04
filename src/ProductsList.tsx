@@ -1,11 +1,12 @@
 import React from 'react';
 import ProductListItem from './ProductListItem';
-import data from '../public/products.json';
+import data from './data/products.json';
 
 const ProductsList = (props: {box: boolean}): JSX.Element => (
   <>
     {
-    data.products.map((product, index) => <ProductListItem id={`cookie-box-${index}`} 
+    data.products.map((product, index) => <ProductListItem id={`cookie-box-${index}`}
+    key={`cookie-box-${index}`} 
     name={product.name} 
     image={product.image} 
     price={props.box ? product.boxPrice : product.price} 
