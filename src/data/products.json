@@ -3,7 +3,7 @@
   [
     {
       "name": "Choc-a-block",
-      "image": "./images/product-list/list-cookie-01.png",
+      "image": "src/images/product-list/list-cookie-01.png",
       "imageLarge": "",
       "price": 25,
       "boxPrice": 250,
@@ -11,7 +11,7 @@
     },
     {
       "name": "Oatmeal shortbread",
-      "image": "./images/product-list/list-cookie-02.png",
+      "image": "src/images/product-list/list-cookie-02.png",
       "imageLarge": "",
       "price": 30,
       "boxPrice": 300,
@@ -19,7 +19,7 @@
     },
     {
       "name": "Foxtail millet",
-      "image": "./images/product-list/list-cookie-03.png",
+      "image": "src/images/product-list/list-cookie-03.png",
       "imageLarge": "",
       "price": 35,
       "boxPrice": 350,
@@ -27,7 +27,7 @@
     },
     {
       "name": "Pista nut",
-      "image": "./images/product-list/list-cookie-04.png",
+      "image": "src/images/product-list/list-cookie-04.png",
       "imageLarge": "",
       "price": 35,
       "boxPrice": 350,
@@ -35,7 +35,7 @@
     },
     {
       "name": "Choc-a-block",
-      "image": "./images/product-list/list-cookie-01.png",
+      "image": "src/images/product-list/list-cookie-01.png",
       "imageLarge": "",
       "price": 25,
       "boxPrice": 250,
@@ -43,7 +43,7 @@
     },
     {
       "name": "Oatmeal shortbread",
-      "image": "./images/product-list/list-cookie-02.png",
+      "image": "src/images/product-list/list-cookie-02.png",
       "imageLarge": "",
       "price": 30,
       "boxPrice": 300,
@@ -51,7 +51,7 @@
     },
     {
       "name": "Foxtail millet",
-      "image": "./images/product-list/list-cookie-03.png",
+      "image": "src/images/product-list/list-cookie-03.png",
       "imageLarge": "",
       "price": 35,
       "boxPrice": 250,
@@ -59,7 +59,7 @@
     },
     {
       "name": "Pista nut",
-      "image": "./images/product-list/list-cookie-04.png",
+      "image": "src/images/product-list/list-cookie-04.png",
       "imageLarge": "",
       "price": 35,
       "boxPrice": 250,

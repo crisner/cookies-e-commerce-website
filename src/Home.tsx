@@ -12,12 +12,12 @@ const Home = () : JSX.Element => (
       <CTASection 
       class="build-a-box" 
       backgroundColor="#ce6d52" 
-      image="../public/images/box1.png" 
+      image="src/images/box1.png" 
       imageAlt="A picture of a custom cookie box" 
       text="Build your own cookie box" />
       <CTASection 
       class="order-now" 
-      background="../public/images/banner.png" 
+      background="src/images/banner.png" 
       text="Pick your favourite cookies and get them delivered to your doorstep"
       buttonText="Order now" />
     </div>
