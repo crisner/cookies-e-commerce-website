@@ -486,3 +486,93 @@ main .order-now .text {
   background-color: #4f47419e;
   z-index: 2;
 }
+
+/* ------------------------- */
+/* ----- Build A Box UI ---- */
+/* ------------------------- */
+.build-a-box-page {
+  display: flex;
+}
+
+.build-a-box-ui {
+  /* position: absolute; */
+  /* top: 22%; */
+  /* left: 70vw; */
+  border-left: 2px dotted #ce6d52;
+  width: 20vw;
+  /* height: 70vh; */
+  padding: 2rem;
+}
+
+.build-a-box-ui select {
+  width: 25%;
+  /* margin: 0 0.5rem; */
+  border-radius: 6px;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-align: right;
+  border: 2px solid #ce6d52;
+  box-shadow: 0px 1px 1px #23232352;
+}
+
+.build-a-box-ui .total {
+  display: flex;
+  justify-content: space-around;
+  font-size: 1.2rem;
+  font-weight: 600;
+  border-top: 1px solid;
+}
+
+.build-a-box-ui .btn-add {
+  width: 100%;
+  margin: 2rem 0;
+  margin: 2rem 0;
+  height: 3rem;
+  font-weight: 600;
+  text-shadow: 0px 2px 2px #23232361;
+}
+
+.build-a-box-ui .btn-add .disabled {
+  background-color: #cca499;
+  cursor: not-allowed;
+}
+
+.build-a-box-ui .btn-add:hover {
+  text-shadow: -2px 1px 2px #23232361;
+  text-shadow: 0px -2px 2px #23232361;text-shadow: -2px 1px 2px #23232361;
+  box-shadow: 2px -2px 2px #ce6d5273;
+}
+
+.box-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 1rem 0;
+}
+
+.box-item .selected-quantity {
+  width: 10%;
+}
+
+.box-item .preview-img {
+  background: wheat;
+  width: 18%;
+  height: 3rem;
+}
+
+.box-item .product-name {
+  margin: 0.5rem;
+  width: 35%;
+}
+
+.box-item .product-cost {
+  margin: 0.5rem;
+  width: 25%;
+}
+
+.box-item .product-remove {
+  width: 10%;
+  color: #ce6d52;
+}
