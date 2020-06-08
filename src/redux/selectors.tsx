@@ -1,1 +1,1 @@
-export const getSelectedPieces = store => store.selectedPieces;
+export const getSelectedPieces = store => store.boxBuilder.selectedPieces;

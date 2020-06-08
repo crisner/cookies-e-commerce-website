@@ -1,4 +1,6 @@
 import React, { useState, useRef } from 'react';
+import { connect } from 'react-redux';
+import { addPiece } from './redux/actions';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye } from '@fortawesome/free-regular-svg-icons';
 import ProductDescriptionModal from './ProductDescriptionModal';
@@ -10,7 +12,8 @@ interface ProductListItemType {
   image: string,
   price: number,
   type: string,
-  description?: string
+  description?: string,
+  addPiece: object
 }
 
 const ProductListItem = (props: ProductListItemType): JSX.Element => {
@@ -41,7 +44,19 @@ const ProductListItem = (props: ProductListItemType): JSX.Element => {
           <div className="product-details">
             <ProductControls inputId="product-quantity" 
             type={props.type} price={props.price} quantity={quantity} handler={dataHandler} />
-            <button className="btn-add">Add</button>
+            <button className="btn-add" onClick={() => {
+              if(typeof props.addPiece === 'function') {
+                props.addPiece({
+                  id: props.id,
+                  name: props.name,
+                  image: props.image,
+                  price: props.price * quantity,
+                  quantity: quantity,
+                })
+              } else {
+                throw new Error('Expected action to be a function.');
+              }
+            }}>Add</button>
           </div> 
         </div>
       </div>
@@ -61,4 +76,10 @@ const ProductListItem = (props: ProductListItemType): JSX.Element => {
   </>
 )}
 
-export default ProductListItem;
+const mapDispatchToProps = dispatch => {
+  return {
+    addPiece: (data) => dispatch(addPiece(data))
+  }
+}
+
+export default connect(null, mapDispatchToProps)(ProductListItem);

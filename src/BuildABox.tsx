@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import { getSelectedPieces } from './redux/selectors';
 import BoxItem from './BoxItem';
 
-const BuildABox = (): JSX.Element => {
+const BuildABox = ({selectedPieces}): JSX.Element => {
   const [boxSize, setBoxSize] = useState(10);
   
   return (
@@ -14,12 +16,11 @@ const BuildABox = (): JSX.Element => {
         <option value="25">25 pieces</option>
       </select>
       <h4>Start adding pieces from the left. You can add upto {boxSize} pieces.</h4>
-      <BoxItem />
-      <BoxItem />
-      <BoxItem />
-      <BoxItem />
-      <BoxItem />
-      <BoxItem />
+      {selectedPieces && selectedPieces.length
+      ? selectedPieces.map((item, index) => {
+          return <BoxItem key={item.id + index} selectedPiece={item} />;
+        })
+      : null}
       <div className="total">
         <p>Total</p>
         <p>Rs.90.00</p>
@@ -29,4 +30,9 @@ const BuildABox = (): JSX.Element => {
   )
 }
 
-export default BuildABox;
+const mapStateToProps = state => {
+  const selectedPieces = getSelectedPieces(state);
+  return {selectedPieces};
+}
+
+export default connect(mapStateToProps)(BuildABox);
