@@ -41,9 +41,12 @@ const ProductDescriptionModal = (props:ModalPropTypes): JSX.Element => {
         <div className="modal-content">
           <h3 className="product-title">{props.name}</h3>
           <p className="product-description">{props.description}</p>
-          <ProductControls inputId={props.inputId} 
-          type={props.type} price={props.price} 
-          quantity={props.selectedQuantity} handler={handler} />
+          <div className="product-details">
+            <ProductControls inputId={props.inputId} 
+            type={props.type} price={props.price} 
+            quantity={props.selectedQuantity} handler={handler} />
+            <button className="btn-add">Add</button>
+          </div>
         </div>
       </div>
     </>

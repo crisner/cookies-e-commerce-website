@@ -9,7 +9,7 @@ interface ProductControlsProps {
 }
 
 const ProductControls = (props: ProductControlsProps) => (
-  <div className="product-details">
+  <>
     <p className="product-cost">Rs.{props.price * props.quantity}</p>
     <div className="product-quantity">
     <input type="number" name={props.inputId} 
@@ -26,8 +26,7 @@ const ProductControls = (props: ProductControlsProps) => (
     {props.type === 'pc' && props.quantity > 1 ? 's' : (
       props.type === 'box' && props.quantity > 1 ? 'es' : ''
       )}</div>
-    <button className="btn-add">Add</button>
-  </div> 
+  </> 
 )
 
 export default ProductControls;

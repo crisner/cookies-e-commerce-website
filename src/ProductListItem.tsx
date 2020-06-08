@@ -38,8 +38,11 @@ const ProductListItem = (props: ProductListItemType): JSX.Element => {
         
         <div className="product-footer">
           <h3 className="product-title">{props.name}</h3>
-          <ProductControls inputId="product-quantity" 
-          type={props.type} price={props.price} quantity={quantity} handler={dataHandler} />
+          <div className="product-details">
+            <ProductControls inputId="product-quantity" 
+            type={props.type} price={props.price} quantity={quantity} handler={dataHandler} />
+            <button className="btn-add">Add</button>
+          </div> 
         </div>
       </div>
       {modal ? (
