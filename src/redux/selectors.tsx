@@ -1,0 +1,1 @@
+export const getSelectedPieces = store => store.selectedPieces;
