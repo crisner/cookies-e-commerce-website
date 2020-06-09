@@ -30,6 +30,7 @@ export default function(state = initialState, action) {
         selectedPieces: state.selectedPieces.map(piece => {
           if(piece.id === id) {
             piece.quantity = quantity;
+            piece.price = piece.perUnitPrice * quantity;
           }
           return piece;
         })
