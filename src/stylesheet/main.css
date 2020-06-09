@@ -552,8 +552,21 @@ main .order-now .text {
   margin: 1rem 0;
 }
 
+.box-item .edit-controls {
+  display: flex;
+  flex-direction: column;
+  color: #ce6d52;
+  position: relative;
+  left: -0.3rem;
+  opacity: 0;
+}
+
 .box-item .selected-quantity {
   width: 10%;
+}
+
+.box-item:hover .edit-controls  {
+  opacity: 1;
 }
 
 .box-item .preview-img {
@@ -564,7 +577,7 @@ main .order-now .text {
 
 .box-item .product-name {
   margin: 0.5rem;
-  width: 35%;
+  width: 25%;
 }
 
 .box-item .product-cost {

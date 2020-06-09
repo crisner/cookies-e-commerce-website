@@ -52,6 +52,7 @@ const ProductListItem = (props: ProductListItemType): JSX.Element => {
                   name: props.name,
                   image: props.image,
                   price: props.price * quantity,
+                  perUnitPrice: props.price,
                   quantity: quantity,
                 })
               } else {
