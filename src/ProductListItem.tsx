@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { connect } from 'react-redux';
 import { addPiece } from './redux/actions';
+import { v4 as uuidv4 } from 'uuid';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye } from '@fortawesome/free-regular-svg-icons';
 import ProductDescriptionModal from './ProductDescriptionModal';
@@ -47,7 +48,7 @@ const ProductListItem = (props: ProductListItemType): JSX.Element => {
             <button className="btn-add" onClick={() => {
               if(typeof props.addPiece === 'function') {
                 props.addPiece({
-                  id: props.id,
+                  id: uuidv4(),
                   name: props.name,
                   image: props.image,
                   price: props.price * quantity,
