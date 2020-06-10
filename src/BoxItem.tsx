@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { removePiece, updatePieceQuantity } from './redux/actions';
+import { removePiece, updatePieceQuantity } from './redux/actions/actions';
 import { getSelectedPiece } from './redux/selectors';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt, faPlusSquare, faMinusSquare } from '@fortawesome/free-solid-svg-icons';

@@ -1,4 +1,4 @@
-import { ADD_PIECE, REMOVE_PIECE, UPDATE_PIECE_QUANTITY } from '../actionTypes';
+import { ADD_PIECE, REMOVE_PIECE, UPDATE_PIECE_QUANTITY } from '../actions/actionTypes';
 
 const initialState = {
   selectedPieces: []
