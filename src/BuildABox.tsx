@@ -23,7 +23,9 @@ const BuildABox = ({selectedPieces}): JSX.Element => {
       : null}
       <div className="total">
         <p>Total</p>
-        <p>Rs.90.00</p>
+        <p>Rs.{selectedPieces && selectedPieces.length
+      ? selectedPieces.reduce((total, item) => total + item.price, 0).toFixed(2)
+      : '0.00'}</p>
       </div>
       <button className="btn-add">Add box to cart</button>
     </div>
