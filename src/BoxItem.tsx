@@ -16,7 +16,7 @@ const BoxItem = ({selectedPiece, currentPiece, removePiece, updatePieceQuantity}
       <img src={selectedPiece.image} alt={`Image of ${selectedPiece.name} cookies`} style={{width: '100%'}} />
     </div>
     <p className="product-name">{selectedPiece.name}</p>
-    <p className="product-cost">Rs. {selectedPiece.price}</p>
+    <p className="product-cost">Rs. {selectedPiece.price.toFixed(2)}</p>
     <FontAwesomeIcon className="product-remove" icon={faTrashAlt} onClick={() => removePiece(selectedPiece.id)} />
   </div>  
 )
