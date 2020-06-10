@@ -1,10 +1,10 @@
-import { ADD_PIECE, REMOVE_PIECE, UPDATE_PIECE_QUANTITY } from '../actions/actionTypes';
+import { BoxBuilderState, ADD_PIECE, REMOVE_PIECE, UPDATE_PIECE_QUANTITY, BoxBuilderActionTypes } from './types';
 
-const initialState = {
+const initialState: BoxBuilderState = {
   selectedPieces: []
 };
 
-export default function(state = initialState, action) {
+export default function(state = initialState, action: BoxBuilderActionTypes): BoxBuilderState {
   switch(action.type) {
     case ADD_PIECE: {
       const { pieceDetails } = action.payload;

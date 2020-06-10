@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { connect } from 'react-redux';
-import { addPiece } from './redux/actions/actions';
+import { addPiece } from './store/boxBuilder/actions';
+import { SelectedPiece } from './store/boxBuilder/types';
 import { v4 as uuidv4 } from 'uuid';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye } from '@fortawesome/free-regular-svg-icons';
@@ -13,11 +14,14 @@ interface ProductListItemType {
   image: string,
   price: number,
   type: string,
-  description?: string,
-  addPiece: object
+  description?: string
 }
 
-const ProductListItem = (props: ProductListItemType): JSX.Element => {
+interface DispatchProps {
+  addPiece: (pieceDetails: SelectedPiece) => any
+}
+
+const ProductListItem = (props: ProductListItemType, {addPiece}: DispatchProps): JSX.Element => {
   const [quantity, setQuantity] = useState(1);
   const [modal, setModal] = useState(false);
   const productImg = useRef(null);
@@ -46,18 +50,14 @@ const ProductListItem = (props: ProductListItemType): JSX.Element => {
             <ProductControls inputId="product-quantity" 
             type={props.type} price={props.price} quantity={quantity} handler={dataHandler} />
             <button className="btn-add" onClick={() => {
-              if(typeof props.addPiece === 'function') {
-                props.addPiece({
-                  id: uuidv4(),
-                  name: props.name,
-                  image: props.image,
-                  price: props.price * quantity,
-                  perUnitPrice: props.price,
-                  quantity: quantity,
-                })
-              } else {
-                throw new Error('Expected action to be a function.');
-              }
+              addPiece({
+                id: uuidv4(),
+                name: props.name,
+                image: props.image,
+                price: props.price * quantity,
+                perUnitPrice: props.price,
+                quantity: quantity,
+              })
             }}>Add</button>
           </div> 
         </div>
@@ -80,7 +80,7 @@ const ProductListItem = (props: ProductListItemType): JSX.Element => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    addPiece: (data) => dispatch(addPiece(data))
+    addPiece: (pieceDetails: SelectedPiece) => dispatch(addPiece(pieceDetails))
   }
 }
 

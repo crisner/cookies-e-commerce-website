@@ -1,11 +1,34 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { removePiece, updatePieceQuantity } from './redux/actions/actions';
-import { getSelectedPiece } from './redux/selectors';
+import { connect, ConnectedProps } from 'react-redux';
+import { AppState } from './store';
+import { SelectedPiece } from './store/boxBuilder/types'
+import { removePiece, updatePieceQuantity } from './store/boxBuilder/actions';
+import { getSelectedPiece } from './store/boxBuilder/selectors';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt, faPlusSquare, faMinusSquare } from '@fortawesome/free-solid-svg-icons';
 
-const BoxItem = ({selectedPiece, currentPiece, removePiece, updatePieceQuantity}): JSX.Element => (
+const mapStateToProps = (state: AppState, ownProps: {selectedPiece: SelectedPiece}) => {
+  const currentPiece = getSelectedPiece(state, ownProps.selectedPiece.id);
+  return {currentPiece};
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    removePiece: (id: string) => dispatch(removePiece(id)),
+    updatePieceQuantity: (id: string, quantity: number) => dispatch(updatePieceQuantity(id, quantity))
+  }
+}
+
+const connector = connect(mapStateToProps, mapDispatchToProps)
+
+type PropsFromRedux = ConnectedProps<typeof connector>
+
+interface Props extends PropsFromRedux {
+  selectedPiece: SelectedPiece
+  currentPiece: SelectedPiece
+}
+
+const BoxItem = ({selectedPiece, currentPiece, removePiece, updatePieceQuantity}:Props): JSX.Element => (
   <div className="box-item">
     <div className="edit-controls">
       <FontAwesomeIcon icon={faPlusSquare} onClick={() => updatePieceQuantity(selectedPiece.id, selectedPiece.quantity + 1)} />
@@ -21,16 +44,4 @@ const BoxItem = ({selectedPiece, currentPiece, removePiece, updatePieceQuantity}
   </div>  
 )
 
-const mapStateToProps = (state, ownProps) => {
-  const currentPiece = getSelectedPiece(state, ownProps.selectedPiece.id);
-  return {currentPiece};
-}
-
-const mapDispatchToProps = dispatch => {
-  return {
-    removePiece: id => dispatch(removePiece(id)),
-    updatePieceQuantity: (id, quantity) => dispatch(updatePieceQuantity(id, quantity))
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(BoxItem);
+export default connector(BoxItem);

@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { getSelectedPieces } from './redux/selectors';
+import { AppState } from './store';
+import { BoxBuilderState } from './store/boxBuilder/types';
+import { getSelectedPieces } from './store/boxBuilder/selectors';
 import BoxItem from './BoxItem';
 
-const BuildABox = ({selectedPieces}): JSX.Element => {
+type Props = BoxBuilderState;
+
+const BuildABox = ({selectedPieces}: Props): JSX.Element => {
   const [boxSize, setBoxSize] = useState(10);
   
   return (
@@ -32,7 +36,7 @@ const BuildABox = ({selectedPieces}): JSX.Element => {
   )
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state: AppState) => {
   const selectedPieces = getSelectedPieces(state);
   return {selectedPieces};
 }
