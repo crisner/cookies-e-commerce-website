@@ -1,4 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { addPiece } from './store/boxBuilder/actions';
+import { SelectedPiece } from './store/boxBuilder/types';
+import { v4 as uuidv4 } from 'uuid';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import ProductControls from './ProductControls';
@@ -16,7 +20,11 @@ interface ModalPropTypes {
   closeModal: object
 }
 
-const ProductDescriptionModal = (props:ModalPropTypes): JSX.Element => {
+interface Props extends ModalPropTypes {
+  addPiece: (pieceDetails: SelectedPiece) => any
+}
+
+const ProductDescriptionModal = (props:Props): JSX.Element => {
   const closeModal = props.closeModal;
   const handler = props.handler;
   return (
@@ -45,7 +53,16 @@ const ProductDescriptionModal = (props:ModalPropTypes): JSX.Element => {
             <ProductControls inputId={props.inputId} 
             type={props.type} price={props.price} 
             quantity={props.selectedQuantity} handler={handler} />
-            <button className="btn-add">Add</button>
+            <button className="btn-add" onClick={() => {
+              props.addPiece({
+                id: uuidv4(),
+                name: props.name,
+                image: props.image,
+                price: props.price * props.selectedQuantity,
+                perUnitPrice: props.price,
+                quantity: props.selectedQuantity
+              })
+            }}>Add</button>
           </div>
         </div>
       </div>
@@ -53,4 +70,10 @@ const ProductDescriptionModal = (props:ModalPropTypes): JSX.Element => {
   )
 }
 
-export default ProductDescriptionModal;
+const mapDispatchToProps = dispatch => {
+  return {
+    addPiece: (pieceDetails: SelectedPiece) => dispatch(addPiece(pieceDetails))
+  }
+}
+
+export default connect(null, mapDispatchToProps)(ProductDescriptionModal);
