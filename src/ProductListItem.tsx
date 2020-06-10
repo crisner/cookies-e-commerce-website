@@ -17,11 +17,11 @@ interface ProductListItemType {
   description?: string
 }
 
-interface DispatchProps {
+interface Props extends ProductListItemType {
   addPiece: (pieceDetails: SelectedPiece) => any
 }
 
-const ProductListItem = (props: ProductListItemType, {addPiece}: DispatchProps): JSX.Element => {
+const ProductListItem = (props: Props): JSX.Element => {
   const [quantity, setQuantity] = useState(1);
   const [modal, setModal] = useState(false);
   const productImg = useRef(null);
@@ -50,14 +50,14 @@ const ProductListItem = (props: ProductListItemType, {addPiece}: DispatchProps):
             <ProductControls inputId="product-quantity" 
             type={props.type} price={props.price} quantity={quantity} handler={dataHandler} />
             <button className="btn-add" onClick={() => {
-              addPiece({
-                id: uuidv4(),
-                name: props.name,
-                image: props.image,
-                price: props.price * quantity,
-                perUnitPrice: props.price,
-                quantity: quantity,
-              })
+                props.addPiece({
+                  id: uuidv4(),
+                  name: props.name,
+                  image: props.image,
+                  price: props.price * quantity,
+                  perUnitPrice: props.price,
+                  quantity: quantity,
+                })
             }}>Add</button>
           </div> 
         </div>
