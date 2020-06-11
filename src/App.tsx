@@ -9,11 +9,15 @@ import Footer from './Footer';
 import Home from './main/Home';
 import Products from './products/Products';
 import BuildABox from './buildABox/BuildABox';
+import Cart from './cart/cart'
 
 const App = (): JSX.Element => (
   <Router>
     <Header />
     <Switch>
+      <Route path="/cart">
+        <Cart />
+      </Route>
       <Route path="/build-a-box">
         <div className="build-a-box-page">
           <Products box={false} />

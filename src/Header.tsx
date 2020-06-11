@@ -12,7 +12,7 @@ const Header = (): JSX.Element => (
       <div className="links">
         <FontAwesomeIcon icon={faSearch} />
         <a href="#" role="button">Sign in</a>
-        <FontAwesomeIcon icon={faShoppingBag} />
+        <Link to="/cart"><FontAwesomeIcon icon={faShoppingBag} /></Link>
       </div>
     </div>
     <ul className="menu">
