@@ -54,14 +54,16 @@ const ProductDescriptionModal = (props:Props): JSX.Element => {
             type={props.type} price={props.price} 
             quantity={props.selectedQuantity} handler={handler} />
             <button className="btn-add" onClick={() => {
-              props.addPiece({
-                id: uuidv4(),
-                name: props.name,
-                image: props.image,
-                price: props.price * props.selectedQuantity,
-                perUnitPrice: props.price,
-                quantity: props.selectedQuantity
-              })
+              if(props.type === 'pc') {
+                props.addPiece({
+                  id: uuidv4(),
+                  name: props.name,
+                  image: props.image,
+                  price: props.price * props.selectedQuantity,
+                  perUnitPrice: props.price,
+                  quantity: props.selectedQuantity
+                })
+              }
             }}>Add</button>
           </div>
         </div>

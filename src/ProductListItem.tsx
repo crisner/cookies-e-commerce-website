@@ -50,6 +50,7 @@ const ProductListItem = (props: Props): JSX.Element => {
             <ProductControls inputId="product-quantity" 
             type={props.type} price={props.price} quantity={quantity} handler={dataHandler} />
             <button className="btn-add" onClick={() => {
+              if(props.type === 'pc') {
                 props.addPiece({
                   id: uuidv4(),
                   name: props.name,
@@ -58,6 +59,7 @@ const ProductListItem = (props: Props): JSX.Element => {
                   perUnitPrice: props.price,
                   quantity: quantity,
                 })
+              }
             }}>Add</button>
           </div> 
         </div>
