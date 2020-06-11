@@ -31,7 +31,9 @@ const BoxItem = ({selectedPiece, currentPiece, removePiece, updatePieceQuantity}
   <div className="box-item">
     <div className="edit-controls">
       <FontAwesomeIcon icon={faPlusSquare} onClick={() => updatePieceQuantity(selectedPiece.id, selectedPiece.quantity + 1)} />
-      <FontAwesomeIcon icon={faMinusSquare} onClick={() => updatePieceQuantity(selectedPiece.id, selectedPiece.quantity - 1)} />
+      <FontAwesomeIcon icon={faMinusSquare} 
+      onClick={() => updatePieceQuantity(selectedPiece.id, 
+      selectedPiece.quantity > 1 ? selectedPiece.quantity - 1 : 1)} />
     </div>
     <p className="selected-quantity">{currentPiece[0].quantity}</p>
     <div className="preview-img" style={{contain: 'content'}}>
