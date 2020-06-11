@@ -33,7 +33,7 @@ const BoxItem = ({selectedPiece, currentPiece, removePiece, updatePieceQuantity}
       <FontAwesomeIcon icon={faPlusSquare} onClick={() => updatePieceQuantity(selectedPiece.id, selectedPiece.quantity + 1)} />
       <FontAwesomeIcon icon={faMinusSquare} onClick={() => updatePieceQuantity(selectedPiece.id, selectedPiece.quantity - 1)} />
     </div>
-    <p className="selected-quantity">{currentPiece.quantity}</p>
+    <p className="selected-quantity">{currentPiece[0].quantity}</p>
     <div className="preview-img" style={{contain: 'content'}}>
       <img src={selectedPiece.image} alt={`Image of ${selectedPiece.name} cookies`} style={{width: '100%'}} />
     </div>
