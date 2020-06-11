@@ -14,7 +14,7 @@ const mapStateToProps = (state: AppState, ownProps: {selectedPiece: SelectedPiec
 
 const mapDispatchToProps = dispatch => {
   return {
-    removePiece: (id: string) => dispatch(removePiece(id)),
+    removePiece: (id: string, quantity: number) => dispatch(removePiece(id, quantity)),
     updatePieceQuantity: (id: string, quantity: number) => dispatch(updatePieceQuantity(id, quantity))
   }
 }
@@ -40,7 +40,7 @@ const BoxItem = ({selectedPiece, currentPiece, removePiece, updatePieceQuantity}
     </div>
     <p className="product-name">{selectedPiece.name}</p>
     <p className="product-cost">Rs. {selectedPiece.price.toFixed(2)}</p>
-    <FontAwesomeIcon className="product-remove" icon={faTrashAlt} onClick={() => removePiece(selectedPiece.id)} />
+    <FontAwesomeIcon className="product-remove" icon={faTrashAlt} onClick={() => removePiece(selectedPiece.id, selectedPiece.quantity)} />
   </div>  
 )
 

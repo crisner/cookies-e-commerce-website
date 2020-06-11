@@ -8,7 +8,8 @@ export interface SelectedPiece {
 }
 
 export interface BoxBuilderState {
-  selectedPieces: SelectedPiece[]
+  selectedPieces: SelectedPiece[],
+  piecesInBox: number
 }
 
 export const ADD_PIECE = 'ADD_PIECE';
@@ -26,6 +27,7 @@ interface RemovePieceAction {
   type: typeof REMOVE_PIECE
   payload: {
     id: string
+    quantity: number
   }
 }
 

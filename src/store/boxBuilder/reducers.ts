@@ -1,7 +1,8 @@
 import { BoxBuilderState, ADD_PIECE, REMOVE_PIECE, UPDATE_PIECE_QUANTITY, BoxBuilderActionTypes } from './types';
 
 const initialState: BoxBuilderState = {
-  selectedPieces: []
+  selectedPieces: [],
+  piecesInBox: 0
 };
 
 export default function(state = initialState, action: BoxBuilderActionTypes): BoxBuilderState {
@@ -13,18 +14,21 @@ export default function(state = initialState, action: BoxBuilderActionTypes): Bo
         selectedPieces: [
           ...state.selectedPieces,
           pieceDetails
-        ]
+        ],
+        piecesInBox: state.piecesInBox + pieceDetails.quantity
       };
     }
     case REMOVE_PIECE: {
-      const { id } = action.payload;
+      const { id, quantity } = action.payload;
       return {
         ...state,
-        selectedPieces: state.selectedPieces.filter(piece => piece.id !== id)
+        selectedPieces: state.selectedPieces.filter(piece => piece.id !== id),
+        piecesInBox: state.piecesInBox - quantity
       };
     }
     case UPDATE_PIECE_QUANTITY: {
       const { id, quantity } = action.payload;
+      let updatedPiecesInBox = 0;
       return {
         ...state,
         selectedPieces: state.selectedPieces.map(piece => {
@@ -32,8 +36,10 @@ export default function(state = initialState, action: BoxBuilderActionTypes): Bo
             piece.quantity = quantity;
             piece.price = piece.perUnitPrice * quantity;
           }
+          updatedPiecesInBox = updatedPiecesInBox + piece.quantity;
           return piece;
-        })
+        }),
+        piecesInBox: updatedPiecesInBox
       };
     }
     default:

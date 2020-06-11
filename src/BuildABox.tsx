@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { AppState } from './store';
 import { BoxBuilderState } from './store/boxBuilder/types';
-import { getSelectedPieces } from './store/boxBuilder/selectors';
+import { getSelectedPieces, getTotalItemsInBox } from './store/boxBuilder/selectors';
 import BoxItem from './BoxItem';
 
 type Props = BoxBuilderState;
 
-const BuildABox = ({selectedPieces}: Props): JSX.Element => {
+const BuildABox = ({selectedPieces, piecesInBox}: Props): JSX.Element => {
   const [boxSize, setBoxSize] = useState(10);
-  
+  const piecesToAdd = boxSize - piecesInBox;
   return (
     <div className="build-a-box-ui">
       <h3>Custom Box Builder</h3>
@@ -19,7 +19,7 @@ const BuildABox = ({selectedPieces}: Props): JSX.Element => {
         <option value="16">16 pieces</option>
         <option value="25">25 pieces</option>
       </select>
-      <h4>Start adding pieces from the left. You can add upto {boxSize} pieces.</h4>
+      <h4>Start adding pieces from the left. You can add upto {piecesToAdd < 0 ? 0 : piecesToAdd} pieces.</h4>
       {selectedPieces && selectedPieces.length
       ? selectedPieces.map((item, index) => {
           return <BoxItem key={item.id + index} selectedPiece={item} />;
@@ -31,14 +31,25 @@ const BuildABox = ({selectedPieces}: Props): JSX.Element => {
       ? selectedPieces.reduce((total, item) => total + item.price, 0).toFixed(2)
       : '0.00'}</p>
       </div>
-      <button className="btn-add">Add box to cart</button>
+      {piecesInBox === boxSize ? 
+        <button className="btn-add">Add box to cart</button> : 
+        <button disabled className="btn-add disabled">Add box to cart</button>
+      }
+      {piecesToAdd < 0 ? <p style={{
+        textAlign: 'center',
+        fontSize: '0.9rem'
+        }}>Remove {Math.abs(piecesToAdd)} 
+        {Math.abs(piecesToAdd) === 1 ? ' piece' : ' pieces'}
+        { boxSize < 25 ? ' or choose a different box size' : null}
+      </p> : null}
     </div>
   )
 }
 
 const mapStateToProps = (state: AppState) => {
   const selectedPieces = getSelectedPieces(state);
-  return {selectedPieces};
+  const piecesInBox = getTotalItemsInBox(state);
+  return {selectedPieces, piecesInBox};
 }
 
 export default connect(mapStateToProps)(BuildABox);

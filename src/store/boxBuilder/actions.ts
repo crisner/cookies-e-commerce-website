@@ -7,10 +7,11 @@ export const addPiece = (pieceDetails: SelectedPiece): BoxBuilderActionTypes => 
   }
 });
 
-export const removePiece = (id: string): BoxBuilderActionTypes => ({
+export const removePiece = (id: string, quantity: number): BoxBuilderActionTypes => ({
   type: REMOVE_PIECE,
   payload: {
-    id
+    id,
+    quantity
   }
 });
 
