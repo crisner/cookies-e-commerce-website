@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect, ConnectedProps } from 'react-redux';
-import { AppState } from './store';
-import { SelectedPiece } from './store/boxBuilder/types'
-import { removePiece, updatePieceQuantity } from './store/boxBuilder/actions';
-import { getSelectedPiece } from './store/boxBuilder/selectors';
+import { AppState } from '../store';
+import { SelectedPiece } from '../store/boxBuilder/types'
+import { removePiece, updatePieceQuantity } from '../store/boxBuilder/actions';
+import { getSelectedPiece } from '../store/boxBuilder/selectors';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt, faPlusSquare, faMinusSquare } from '@fortawesome/free-solid-svg-icons';
 

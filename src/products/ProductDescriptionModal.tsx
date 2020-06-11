@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { addPiece } from './store/boxBuilder/actions';
-import { SelectedPiece } from './store/boxBuilder/types';
+import { addPiece } from '../store/boxBuilder/actions';
+import { SelectedPiece } from '../store/boxBuilder/types';
 import { v4 as uuidv4 } from 'uuid';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';

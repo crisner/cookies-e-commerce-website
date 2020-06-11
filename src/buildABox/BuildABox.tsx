@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import { AppState } from './store';
-import { BoxBuilderState } from './store/boxBuilder/types';
-import { getSelectedPieces, getTotalItemsInBox } from './store/boxBuilder/selectors';
+import { AppState } from '../store';
+import { BoxBuilderState } from '../store/boxBuilder/types';
+import { getSelectedPieces, getTotalItemsInBox } from '../store/boxBuilder/selectors';
 import BoxItem from './BoxItem';
 
 type Props = BoxBuilderState;

@@ -1,6 +1,6 @@
 import React from 'react';
 import ProductListItem from './ProductListItem';
-import data from './data/products.json';
+import data from '../data/products.json';
 
 const ProductsList = (props: {box: boolean}): JSX.Element => (
   <>

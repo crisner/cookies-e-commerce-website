@@ -6,9 +6,9 @@ import {
 } from "react-router-dom";
 import Header from './Header';
 import Footer from './Footer';
-import Home from './Home';
-import Products from './Products';
-import BuildABox from './BuildABox';
+import Home from './main/Home';
+import Products from './products/Products';
+import BuildABox from './buildABox/BuildABox';
 
 const App = (): JSX.Element => (
   <Router>
