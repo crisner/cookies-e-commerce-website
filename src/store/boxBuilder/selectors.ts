@@ -1,5 +1,7 @@
-export const getSelectedPieces = store => store.boxBuilder.selectedPieces;
+import { AppState } from '../';
 
-export const getSelectedPiece = (store, id) => store.boxBuilder.selectedPieces.filter(piece => piece.id === id);
+export const getSelectedPieces = (store: AppState) => store.boxBuilder.selectedPieces;
 
-export const getTotalItemsInBox = store => store.boxBuilder.piecesInBox;
+export const getSelectedPiece = (store: AppState, id: string) => store.boxBuilder.selectedPieces.filter(piece => piece.id === id)[0];
+
+export const getTotalItemsInBox = (store: AppState) => store.boxBuilder.piecesInBox;
