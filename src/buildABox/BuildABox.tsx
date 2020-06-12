@@ -22,7 +22,7 @@ const BuildABox = ({selectedPieces, piecesInBox}: Props): JSX.Element => {
       <h4>Start adding pieces from the left. You can add upto {piecesToAdd < 0 ? 0 : piecesToAdd} pieces.</h4>
       {selectedPieces && selectedPieces.length
       ? selectedPieces.map((item, index) => {
-          return <BoxItem key={item.id + index} selectedPiece={item} />;
+          return <BoxItem key={item.id + index} selectedItem={item} />;
         })
       : null}
       <div className="total">

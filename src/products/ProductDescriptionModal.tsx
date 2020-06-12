@@ -1,7 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { addPiece } from '../store/boxBuilder/actions';
+import { addToCart } from '../store/cart/actions';
 import { SelectedPiece } from '../store/boxBuilder/types';
+import { CartItem } from '../store/cart/types';
 import { v4 as uuidv4 } from 'uuid';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
@@ -22,6 +24,7 @@ interface ModalPropTypes {
 
 interface Props extends ModalPropTypes {
   addPiece: (pieceDetails: SelectedPiece) => any
+  addToCart: (item: CartItem) => any
 }
 
 const ProductDescriptionModal = (props:Props): JSX.Element => {
@@ -61,7 +64,18 @@ const ProductDescriptionModal = (props:Props): JSX.Element => {
                   image: props.image,
                   price: props.price * props.selectedQuantity,
                   perUnitPrice: props.price,
-                  quantity: props.selectedQuantity
+                  quantity: props.selectedQuantity,
+                  type: props.type
+                })
+              } else {
+                props.addToCart({
+                  id: uuidv4(),
+                  name: props.name,
+                  image: props.image,
+                  price: props.price * props.selectedQuantity,
+                  perUnitPrice: props.price,
+                  quantity: props.selectedQuantity,
+                  type: props.type
                 })
               }
             }}>Add</button>
@@ -74,7 +88,8 @@ const ProductDescriptionModal = (props:Props): JSX.Element => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    addPiece: (pieceDetails: SelectedPiece) => dispatch(addPiece(pieceDetails))
+    addPiece: (pieceDetails: SelectedPiece) => dispatch(addPiece(pieceDetails)),
+    addToCart: (item: CartItem) => dispatch(addToCart(item))
   }
 }
 

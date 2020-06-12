@@ -5,6 +5,7 @@ export interface CartItem {
   price: number
   perUnitPrice: number
   quantity: number
+  type: string
 }
 
 export interface CartState {

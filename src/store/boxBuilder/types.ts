@@ -5,6 +5,7 @@ export interface SelectedPiece {
   price: number
   perUnitPrice: number
   quantity: number
+  type: string
 }
 
 export interface BoxBuilderState {
