@@ -9,7 +9,7 @@ import Footer from './Footer';
 import Home from './main/Home';
 import Products from './products/Products';
 import BuildABox from './buildABox/BuildABox';
-import Cart from './cart/cart'
+import Cart from './cart/Cart'
 
 const App = (): JSX.Element => (
   <Router>
