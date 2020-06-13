@@ -1,8 +1,12 @@
-import { CartState, ADD_TO_CART, REMOVE_FROM_CART, 
+import { v4 as uuidv4 } from 'uuid';
+import { CartState, ADD_TO_CART, ADD_CUSTOM_BOX_TO_CART, REMOVE_FROM_CART, 
   UPDATE_CART, CartActionTypes } from './types';
 
   const initialState: CartState = {
-    itemsInCart: []
+    itemsInCart: {
+      boxes: [],
+      customBoxes: {}
+    }
   }
 
   export default (state = initialState, action: CartActionTypes): CartState => {
@@ -11,27 +15,50 @@ import { CartState, ADD_TO_CART, REMOVE_FROM_CART,
         const { item } = action.payload;
         return {
           ...state,
-          itemsInCart: [...state.itemsInCart, item]
+          itemsInCart: {
+            ...state.itemsInCart,
+            boxes: [...state.itemsInCart.boxes, item]
+          }
+        };
+      }
+      case ADD_CUSTOM_BOX_TO_CART: {
+        const { item } = action.payload;
+        const id = uuidv4();
+        return {
+          ...state,
+          itemsInCart: {
+            ...state.itemsInCart,
+            customBoxes: {
+              ...state.itemsInCart.customBoxes,
+              [id]: item
+            }
+          }
         };
       }
       case REMOVE_FROM_CART: {
         const { id, quantity } = action.payload;
         return {
           ...state,
-          itemsInCart: state.itemsInCart.filter(item => item.id !== id)
+          itemsInCart: {
+            ...state.itemsInCart,
+            boxes: state.itemsInCart.boxes.filter(item => item.id !== id)
+          }
         };
       }
       case UPDATE_CART: {
         const { id, quantity } = action.payload;
         return {
           ...state,
-          itemsInCart: state.itemsInCart.map(item => {
-            if(item.id === id) {
-              item.quantity = quantity;
-              item.price = item.perUnitPrice * quantity;
-            }
-            return item;
-          })
+          itemsInCart: {
+            ...state.itemsInCart,
+            boxes: state.itemsInCart.boxes.map(item => {
+              if(item.id === id) {
+                item.quantity = quantity;
+                item.price = item.perUnitPrice * quantity;
+              }
+              return item;
+            })
+          }
         };
       }
       default:

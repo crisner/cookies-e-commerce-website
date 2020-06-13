@@ -1,8 +1,15 @@
-import { CartItem, ADD_TO_CART, REMOVE_FROM_CART, 
+import { CartItem, ADD_TO_CART, ADD_CUSTOM_BOX_TO_CART, REMOVE_FROM_CART, 
 UPDATE_CART, CartActionTypes } from './types';
 
 export const addToCart = (item: CartItem): CartActionTypes => ({
   type: ADD_TO_CART,
+  payload: {
+    item
+  }
+});
+
+export const addCustomBoxToCart = (item: CartItem[]): CartActionTypes => ({
+  type: ADD_CUSTOM_BOX_TO_CART,
   payload: {
     item
   }
