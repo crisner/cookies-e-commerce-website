@@ -6,13 +6,13 @@ import { CartItem } from '../store/cart/types';
 import { removePiece, updatePieceQuantity } from '../store/boxBuilder/actions';
 import { removeCartItem, updateCart } from '../store/cart/actions';
 import { getSelectedPiece } from '../store/boxBuilder/selectors';
-import { getCartItem } from '../store/cart/selectors';
+import { getBoxInCart } from '../store/cart/selectors';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt, faPlusSquare, faMinusSquare } from '@fortawesome/free-solid-svg-icons';
 
 const mapStateToProps = (state: AppState, ownProps: {selectedItem: SelectedPiece | CartItem}) => {
   const currentPiece = getSelectedPiece(state, ownProps.selectedItem.id);
-  const currentCartItem = getCartItem(state, ownProps.selectedItem.id);
+  const currentCartItem = getBoxInCart(state, ownProps.selectedItem.id);
   const currentItem = currentPiece && currentPiece.length ? {currentItem: currentPiece} : {currentItem: currentCartItem};
   return currentItem;
 }
