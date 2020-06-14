@@ -24,7 +24,7 @@ const Cart = ({itemsInCart}: Props): JSX.Element => {
         return (
           <div key={key}>
             <p style={{fontSize: '1.3rem'}}>Custom Box {index + 1}</p>
-            {value.map((item, index) => <BoxItem key={item.id + index} selectedItem={item} />)}
+            {value.map((item, index) => <BoxItem key={item.id + index} selectedItem={item} disableDelete={true} />)}
           </div>);
       }): null}
       

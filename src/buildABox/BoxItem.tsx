@@ -33,9 +33,10 @@ type PropsFromRedux = ConnectedProps<typeof connector>
 interface Props extends PropsFromRedux {
   selectedItem: SelectedPiece | CartItem
   currentItem: SelectedPiece[] | CartItem[]
+  disableDelete?: boolean
 }
 
-const BoxItem = ({selectedItem, currentItem, removePiece, updatePieceQuantity, removeCartItem, updateCart}:Props): JSX.Element => (
+const BoxItem = ({disableDelete, selectedItem, currentItem, removePiece, updatePieceQuantity, removeCartItem, updateCart}:Props): JSX.Element => (
   <div className="box-item">
     <div className="preview-img" style={{contain: 'content'}}>
       <img src={selectedItem.image} alt={`Image of ${selectedItem.name} cookies`} style={{width: '100%'}} />
@@ -59,11 +60,13 @@ const BoxItem = ({selectedItem, currentItem, removePiece, updatePieceQuantity, r
       }} />
     </div>
     <p className="product-cost">Rs. {selectedItem.price.toFixed(2)}</p>
+    {!disableDelete ?
     <FontAwesomeIcon className="product-remove" icon={faTrashAlt} onClick={() => {
       selectedItem.type === 'pc' ? 
       removePiece(selectedItem.id, selectedItem.quantity) :
       removeCartItem(selectedItem.id, selectedItem.quantity)
-    }} />
+    }} /> :
+    null }
   </div>  
 )
 
