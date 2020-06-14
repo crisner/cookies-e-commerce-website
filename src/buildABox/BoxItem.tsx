@@ -46,29 +46,31 @@ const BoxItem = ({disableDelete, selectedItem, currentItem, removePiece, updateP
       &#xD7; 
       {currentItem.length && currentItem[0].quantity ? currentItem[0].quantity : selectedItem.quantity}
     </p>
-    <div className="edit-controls">
-      <FontAwesomeIcon icon={faPlusSquare} 
-      onClick={() => {
-        selectedItem.type === 'pc' ? 
-        updatePieceQuantity(selectedItem.id, selectedItem.quantity + 1) : 
-        updateCart(selectedItem.id, selectedItem.quantity + 1)
-      }} />
-      <FontAwesomeIcon icon={faMinusSquare} 
-      onClick={() => {
-        selectedItem.type === 'pc' ? 
-        updatePieceQuantity(selectedItem.id, 
-        selectedItem.quantity > 1 ? selectedItem.quantity - 1 : 1) : 
-        updateCart(selectedItem.id, 
-        selectedItem.quantity > 1 ? selectedItem.quantity - 1 : 1)
-      }} />
-    </div>
+    {!disableDelete ? (
+      <div className="edit-controls">
+        <FontAwesomeIcon icon={faPlusSquare} 
+        onClick={() => {
+          selectedItem.type === 'pc' ? 
+          updatePieceQuantity(selectedItem.id, selectedItem.quantity + 1) : 
+          updateCart(selectedItem.id, selectedItem.quantity + 1)
+        }} />
+        <FontAwesomeIcon icon={faMinusSquare} 
+        onClick={() => {
+          selectedItem.type === 'pc' ? 
+          updatePieceQuantity(selectedItem.id, 
+          selectedItem.quantity > 1 ? selectedItem.quantity - 1 : 1) : 
+          updateCart(selectedItem.id, 
+          selectedItem.quantity > 1 ? selectedItem.quantity - 1 : 1)
+        }} />
+      </div>
+    ) : null }
     <p className="product-cost">Rs. {selectedItem.price.toFixed(2)}</p>
     {!disableDelete ?
-    <FontAwesomeIcon className="product-remove" icon={faTrashAlt} onClick={() => {
-      selectedItem.type === 'pc' ? 
-      removePiece(selectedItem.id, selectedItem.quantity) :
-      removeCartItem(selectedItem.id, selectedItem.quantity)
-    }} /> :
+      <FontAwesomeIcon className="product-remove" icon={faTrashAlt} onClick={() => {
+        selectedItem.type === 'pc' ? 
+        removePiece(selectedItem.id, selectedItem.quantity) :
+        removeCartItem(selectedItem.id, selectedItem.quantity)
+      }} /> :
     null }
   </div>  
 )
