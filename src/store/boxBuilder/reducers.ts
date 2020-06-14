@@ -1,4 +1,4 @@
-import { BoxBuilderState, ADD_PIECE, REMOVE_PIECE, UPDATE_PIECE_QUANTITY, BoxBuilderActionTypes } from './types';
+import { BoxBuilderState, ADD_PIECE, REMOVE_PIECE, UPDATE_PIECE_QUANTITY, BoxBuilderActionTypes, RESET_BOX_BUILDER } from './types';
 
 const initialState: BoxBuilderState = {
   selectedPieces: [],
@@ -40,6 +40,13 @@ export default function(state = initialState, action: BoxBuilderActionTypes): Bo
           return piece;
         }),
         piecesInBox: updatedPiecesInBox
+      };
+    }
+    case RESET_BOX_BUILDER: {
+      return {
+        ...state,
+        selectedPieces: [],
+        piecesInBox: 0
       };
     }
     default:

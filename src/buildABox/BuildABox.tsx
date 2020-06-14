@@ -3,15 +3,17 @@ import { connect } from 'react-redux';
 import { AppState } from '../store';
 import { BoxBuilderState } from '../store/boxBuilder/types';
 import { getSelectedPieces, getTotalItemsInBox } from '../store/boxBuilder/selectors';
+import { resetBoxBuilder } from '../store/boxBuilder/actions';
 import { addCustomBoxToCart } from '../store/cart/actions';
 import { CartItem } from '../store/cart/types';
 import BoxItem from './BoxItem';
 
 interface Props extends BoxBuilderState {
   addCustomBoxToCart: (item: CartItem[]) => any
+  resetBoxBuilder: () => any
 }
 
-const BuildABox = ({selectedPieces, piecesInBox, addCustomBoxToCart}: Props): JSX.Element => {
+const BuildABox = ({selectedPieces, piecesInBox, addCustomBoxToCart, resetBoxBuilder}: Props): JSX.Element => {
   const [boxSize, setBoxSize] = useState(10);
   const piecesToAdd = boxSize - piecesInBox;
   return (
@@ -36,7 +38,10 @@ const BuildABox = ({selectedPieces, piecesInBox, addCustomBoxToCart}: Props): JS
       : '0.00'}</p>
       </div>
       {piecesInBox === boxSize ? 
-        <button className="btn-add" onClick={() => addCustomBoxToCart(selectedPieces)}>Add box to cart</button> : 
+        <button className="btn-add" onClick={() => {
+          addCustomBoxToCart(selectedPieces)
+          resetBoxBuilder()
+        }}>Add box to cart</button> : 
         <button disabled className="btn-add disabled">Add box to cart</button>
       }
       {piecesToAdd < 0 ? <p style={{
@@ -58,7 +63,8 @@ const mapStateToProps = (state: AppState) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    addCustomBoxToCart: (item: CartItem[]) => dispatch(addCustomBoxToCart(item))
+    addCustomBoxToCart: (item: CartItem[]) => dispatch(addCustomBoxToCart(item)),
+    resetBoxBuilder: () => dispatch(resetBoxBuilder())
   }
 }
 

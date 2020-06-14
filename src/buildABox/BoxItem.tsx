@@ -44,7 +44,7 @@ const BoxItem = ({disableDelete, selectedItem, currentItem, removePiece, updateP
     <p className="product-name">{selectedItem.name}</p>
     <p className="selected-quantity">
       &#xD7; 
-      {currentItem.length && currentItem[0].quantity ? currentItem[0].quantity : null}
+      {currentItem.length && currentItem[0].quantity ? currentItem[0].quantity : selectedItem.quantity}
     </p>
     <div className="edit-controls">
       <FontAwesomeIcon icon={faPlusSquare} 

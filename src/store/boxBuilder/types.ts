@@ -16,6 +16,7 @@ export interface BoxBuilderState {
 export const ADD_PIECE = 'ADD_PIECE';
 export const REMOVE_PIECE = 'REMOVE_PIECE';
 export const UPDATE_PIECE_QUANTITY = 'UPDATE_PIECE_QUANTITY';
+export const RESET_BOX_BUILDER = 'RESET_BOX_BUILDER';
 
 interface AddPieceAction {
   type: typeof ADD_PIECE
@@ -40,4 +41,8 @@ interface UpdatePieceQuantity {
   }
 }
 
-export type BoxBuilderActionTypes = AddPieceAction | RemovePieceAction | UpdatePieceQuantity
+interface ResetBoxBuilderAction {
+  type: typeof RESET_BOX_BUILDER
+}
+
+export type BoxBuilderActionTypes = AddPieceAction | RemovePieceAction | UpdatePieceQuantity | ResetBoxBuilderAction
