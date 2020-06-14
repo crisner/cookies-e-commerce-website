@@ -42,7 +42,10 @@ const BoxItem = ({disableDelete, selectedItem, currentItem, removePiece, updateP
       <img src={selectedItem.image} alt={`Image of ${selectedItem.name} cookies`} style={{width: '100%'}} />
     </div>
     <p className="product-name">{selectedItem.name}</p>
-    <p className="selected-quantity">&#xD7; {currentItem[0].quantity}</p>
+    <p className="selected-quantity">
+      &#xD7; 
+      {currentItem.length && currentItem[0].quantity ? currentItem[0].quantity : null}
+    </p>
     <div className="edit-controls">
       <FontAwesomeIcon icon={faPlusSquare} 
       onClick={() => {
