@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 import { CartState, ADD_TO_CART, ADD_CUSTOM_BOX_TO_CART, REMOVE_FROM_CART, 
-  UPDATE_CART, CartActionTypes } from './types';
+  REMOVE_CUSTOM_BOX_FROM_CART, UPDATE_CART, CartActionTypes } from './types';
 
   const initialState: CartState = {
     itemsInCart: {
@@ -41,7 +41,19 @@ import { CartState, ADD_TO_CART, ADD_CUSTOM_BOX_TO_CART, REMOVE_FROM_CART,
           ...state,
           itemsInCart: {
             ...state.itemsInCart,
-            boxes: state.itemsInCart.boxes.filter(item => item.id !== id)
+            boxes: state.itemsInCart.boxes.filter(item => item.id !== id),
+          }
+        };
+      }
+      case REMOVE_CUSTOM_BOX_FROM_CART: {
+        const { id } = action.payload;
+        const currentCustomBoxes = state.itemsInCart.customBoxes;
+        delete currentCustomBoxes[id];
+        return {
+          ...state,
+          itemsInCart: {
+            ...state.itemsInCart,
+            customBoxes: currentCustomBoxes
           }
         };
       }

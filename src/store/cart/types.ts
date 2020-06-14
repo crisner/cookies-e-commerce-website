@@ -22,6 +22,7 @@ export interface CartState {
 export const ADD_TO_CART = 'ADD_TO_CART';
 export const ADD_CUSTOM_BOX_TO_CART = 'ADD_CUSTOM_BOX_TO_CART';
 export const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
+export const REMOVE_CUSTOM_BOX_FROM_CART = 'REMOVE_CUSTOM_BOX_FROM_CART';
 export const UPDATE_CART = 'UPDATE_CART';
 
 interface AddToCartAction {
@@ -46,6 +47,13 @@ interface RemoveCartItemAction {
   }
 }
 
+interface RemoveCustomBoxAction {
+  type: typeof REMOVE_CUSTOM_BOX_FROM_CART
+  payload: {
+    id: string
+  }
+}
+
 interface UpdateCartAction {
   type: typeof UPDATE_CART
   payload: {
@@ -54,4 +62,4 @@ interface UpdateCartAction {
   }
 }
 
-export type CartActionTypes = AddToCartAction | AddCustomBoxToCartAction | RemoveCartItemAction | UpdateCartAction;
+export type CartActionTypes = AddToCartAction | AddCustomBoxToCartAction | RemoveCartItemAction | RemoveCustomBoxAction | UpdateCartAction;

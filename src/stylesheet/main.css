@@ -603,6 +603,11 @@ main .order-now .text {
   max-width: 75%;
 }
 
+.cart .product-remove {
+  width: 10%;
+  color: #ce6d52;
+}
+
 .cart .subtotal {
   display: flex;
   flex-direction: column;

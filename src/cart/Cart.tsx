@@ -4,10 +4,17 @@ import BoxItem from '../buildABox/BoxItem';
 import { AppState } from '../store';
 import { CartState } from '../store/cart/types';
 import { getBoxesInCart, getCustomBoxesInCart } from '../store/cart/selectors';
+import { removeCustomBox } from '../store/cart/actions';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
-type Props = CartState;
+type PropsFromCartState = CartState;
 
-const Cart = ({itemsInCart}: Props): JSX.Element => {
+interface Props extends PropsFromCartState {
+  removeCustomBox: (key: string) => any
+}
+
+const Cart = ({itemsInCart, removeCustomBox}: Props): JSX.Element => {
 
   const customBoxes = Object.entries(itemsInCart.customBoxes);
   
@@ -24,6 +31,8 @@ const Cart = ({itemsInCart}: Props): JSX.Element => {
         return (
           <div key={key}>
             <p style={{fontSize: '1.3rem'}}>Custom Box {index + 1}</p>
+            <FontAwesomeIcon className="product-remove" icon={faTrashAlt} 
+            onClick={() => removeCustomBox(key)} />
             {value.map((item, index) => <BoxItem key={item.id + index} selectedItem={item} disableDelete={true} />)}
           </div>);
       }): null}
@@ -59,4 +68,10 @@ const mapStateToProps = (state: AppState) => {
   }
 }
 
-export default connect(mapStateToProps)(Cart);
+const mapDispatchToProps = dispatch => {
+  return {
+    removeCustomBox: (key: string) => dispatch(removeCustomBox(key))
+  }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Cart);
