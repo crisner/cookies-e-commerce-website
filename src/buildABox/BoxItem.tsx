@@ -37,6 +37,11 @@ interface Props extends PropsFromRedux {
 
 const BoxItem = ({selectedItem, currentItem, removePiece, updatePieceQuantity, removeCartItem, updateCart}:Props): JSX.Element => (
   <div className="box-item">
+    <div className="preview-img" style={{contain: 'content'}}>
+      <img src={selectedItem.image} alt={`Image of ${selectedItem.name} cookies`} style={{width: '100%'}} />
+    </div>
+    <p className="product-name">{selectedItem.name}</p>
+    <p className="selected-quantity">&#xD7; {currentItem[0].quantity}</p>
     <div className="edit-controls">
       <FontAwesomeIcon icon={faPlusSquare} 
       onClick={() => {
@@ -53,11 +58,6 @@ const BoxItem = ({selectedItem, currentItem, removePiece, updatePieceQuantity, r
         selectedItem.quantity > 1 ? selectedItem.quantity - 1 : 1)
       }} />
     </div>
-    <p className="selected-quantity">{currentItem[0].quantity}</p>
-    <div className="preview-img" style={{contain: 'content'}}>
-      <img src={selectedItem.image} alt={`Image of ${selectedItem.name} cookies`} style={{width: '100%'}} />
-    </div>
-    <p className="product-name">{selectedItem.name}</p>
     <p className="product-cost">Rs. {selectedItem.price.toFixed(2)}</p>
     <FontAwesomeIcon className="product-remove" icon={faTrashAlt} onClick={() => {
       selectedItem.type === 'pc' ? 
