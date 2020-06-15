@@ -9,7 +9,10 @@ export interface CartItem {
 }
 
 export interface CustomBoxItem {
-  [key: string]: CartItem[]
+  [key: string]: {
+    cartItems: CartItem[],
+    total: number
+  },
 }
 
 export interface CartState {
@@ -35,7 +38,8 @@ interface AddToCartAction {
 interface AddCustomBoxToCartAction {
   type: typeof ADD_CUSTOM_BOX_TO_CART
   payload: {
-    item: CartItem[]
+    item: CartItem[],
+    total: number
   }
 }
 

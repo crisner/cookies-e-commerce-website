@@ -8,10 +8,11 @@ export const addToCart = (item: CartItem): CartActionTypes => ({
   }
 });
 
-export const addCustomBoxToCart = (item: CartItem[]): CartActionTypes => ({
+export const addCustomBoxToCart = (item: CartItem[], total: number): CartActionTypes => ({
   type: ADD_CUSTOM_BOX_TO_CART,
   payload: {
-    item
+    item,
+    total
   }
 });
 

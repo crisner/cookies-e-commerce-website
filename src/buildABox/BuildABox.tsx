@@ -9,13 +9,14 @@ import { CartItem } from '../store/cart/types';
 import BoxItem from './BoxItem';
 
 interface Props extends BoxBuilderState {
-  addCustomBoxToCart: (item: CartItem[]) => any
+  addCustomBoxToCart: (item: CartItem[], total: number) => any
   resetBoxBuilder: () => any
 }
 
 const BuildABox = ({selectedPieces, piecesInBox, addCustomBoxToCart, resetBoxBuilder}: Props): JSX.Element => {
   const [boxSize, setBoxSize] = useState(10);
   const piecesToAdd = boxSize - piecesInBox;
+  let total = 0;
   return (
     <div className="build-a-box-ui">
       <h3>Custom Box Builder</h3>
@@ -28,18 +29,17 @@ const BuildABox = ({selectedPieces, piecesInBox, addCustomBoxToCart, resetBoxBui
       <h4>Start adding pieces from the left. You can add upto {piecesToAdd < 0 ? 0 : piecesToAdd} pieces.</h4>
       {selectedPieces && selectedPieces.length
       ? selectedPieces.map((item, index) => {
+          total = total + item.price;
           return <BoxItem key={item.id + index} selectedItem={item} />;
         })
       : null}
       <div className="total">
         <p>Total</p>
-        <p>Rs.{selectedPieces && selectedPieces.length
-      ? selectedPieces.reduce((total, item) => total + item.price, 0).toFixed(2)
-      : '0.00'}</p>
+        <p>Rs.{total.toFixed(2)}</p>
       </div>
       {piecesInBox === boxSize ? 
         <button className="btn-add" onClick={() => {
-          addCustomBoxToCart(selectedPieces)
+          addCustomBoxToCart(selectedPieces, total)
           resetBoxBuilder()
         }}>Add box to cart</button> : 
         <button disabled className="btn-add disabled">Add box to cart</button>
@@ -63,7 +63,7 @@ const mapStateToProps = (state: AppState) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    addCustomBoxToCart: (item: CartItem[]) => dispatch(addCustomBoxToCart(item)),
+    addCustomBoxToCart: (item: CartItem[], total: number) => dispatch(addCustomBoxToCart(item, total)),
     resetBoxBuilder: () => dispatch(resetBoxBuilder())
   }
 }

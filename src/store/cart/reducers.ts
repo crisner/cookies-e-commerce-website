@@ -22,7 +22,7 @@ import { CartState, ADD_TO_CART, ADD_CUSTOM_BOX_TO_CART, REMOVE_FROM_CART,
         };
       }
       case ADD_CUSTOM_BOX_TO_CART: {
-        const { item } = action.payload;
+        const { item, total } = action.payload;
         const id = uuidv4();
         return {
           ...state,
@@ -30,7 +30,10 @@ import { CartState, ADD_TO_CART, ADD_CUSTOM_BOX_TO_CART, REMOVE_FROM_CART,
             ...state.itemsInCart,
             customBoxes: {
               ...state.itemsInCart.customBoxes,
-              [id]: item
+              [id]: {
+                cartItems: item,
+                total: total
+              }
             }
           }
         };
