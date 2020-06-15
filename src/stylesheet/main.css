@@ -615,7 +615,7 @@ main .order-now .text {
   font-size: 1.2rem;
   font-weight: 600;
   border-top: 1px solid;
-  padding: 1rem;
+  padding-right: 11%;
 }
 
 .cart .subtotal-row {
@@ -626,10 +626,11 @@ main .order-now .text {
 
 .cart .total {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   font-size: 1.2rem;
   font-weight: 600;
   border-top: 1px solid;
+  padding-right: 11%;
 }
 
 .cart .btn-add {
@@ -655,4 +656,61 @@ main .order-now .text {
 .cart .btn-add.disabled:hover {
   text-shadow: none;
   box-shadow: none;
+}
+
+.cart .box-item {
+  margin-left: 3%;
+}
+
+.cart .box-item .preview-img {
+  width: 6%;
+}
+
+.cart .box-item .product-name {
+  width: 37%;
+}
+
+.cart .box-item .edit-controls {
+  left: -9%;
+}
+
+.cart .box-item .product-cost {
+  text-align: right;
+}
+
+.cart .customBoxGroup .box-item {
+  margin-right: 11%;
+  margin-left: 3%;
+}
+
+.cart .customBoxGroup .group-title {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.cart .customBoxGroup .title {
+  width: 90%;
+}
+
+.cart .customBoxGroup .box-item .preview-img {
+  width: 7%;
+}
+
+
+.cart .customBoxGroup .box-item .product-name {
+  width: 36%;
+}
+
+.cart .customBoxGroup .box-item .product-cost {
+  width: 30%;
+}
+
+.cart .customBoxGroup .box-item .selected-quantity {
+  width: 11%;
+}
+
+.cart .customBoxGroup .box-item .product-remove {
+  margin: 0 1.5%;
 }

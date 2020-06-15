@@ -39,10 +39,13 @@ const Cart = ({itemsInCart, removeCustomBox}: Props): JSX.Element => {
         subTotal = subTotal + value.total;
         total = subTotal > 2000 ? subTotal : subTotal + shipping;
         return (
-          <div key={key}>
-            <p style={{fontSize: '1.3rem'}}>Custom Box {index + 1}</p>
-            <FontAwesomeIcon className="product-remove" icon={faTrashAlt} 
-            onClick={() => removeCustomBox(key)} />
+          <div className="customBoxGroup" key={key}>
+            <div className="group-title">
+              <p className="title" style={{fontSize: '1.3rem'}}>Custom Box {index + 1}</p>
+              <FontAwesomeIcon className="product-remove" icon={faTrashAlt} 
+              onClick={() => removeCustomBox(key)} />
+            </div>
+            
             {value.cartItems.map((item, index) => <BoxItem key={item.id + index} selectedItem={item} disableDelete={true} />)}
           </div>);
       }): null}
