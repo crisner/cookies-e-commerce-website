@@ -17,7 +17,9 @@ interface Props extends PropsFromCartState {
 const Cart = ({itemsInCart, removeCustomBox}: Props): JSX.Element => {
 
   const customBoxes = Object.entries(itemsInCart.customBoxes);
+  let total = 0;
   let subTotal = 0;
+  const shipping = 300;
   
   return (
     <div className="cart">
@@ -27,12 +29,14 @@ const Cart = ({itemsInCart, removeCustomBox}: Props): JSX.Element => {
       {itemsInCart.boxes && itemsInCart.boxes.length ? 
       itemsInCart.boxes.map((item, index) => {
         subTotal = subTotal + item.price;
+        total = subTotal > 2000 ? subTotal : subTotal + shipping;
         return <BoxItem key={item.id + index} selectedItem={item} />
       }) : null}
 
       {customBoxes && customBoxes.length ? 
       customBoxes.map(([key, value], index) => {
         subTotal = subTotal + value.total;
+        total = subTotal > 2000 ? subTotal : subTotal + shipping;
         return (
           <div key={key}>
             <p style={{fontSize: '1.3rem'}}>Custom Box {index + 1}</p>
@@ -49,12 +53,19 @@ const Cart = ({itemsInCart, removeCustomBox}: Props): JSX.Element => {
         </div>
         <div className="subtotal-row">
           <span>Shipping</span>
-          <span>Rs'100.00'</span>
+          <span>{subTotal > 2000 ?
+          'Free' : `Rs.${shipping.toFixed(2)}`}</span>
         </div>
+        <p style={{
+        textAlign: 'right',
+        fontSize: '0.9rem',
+        fontWeight: 'lighter',
+        fontStyle: 'italic'
+        }}>Free shipping above Rs.2000</p>
       </div>
       <div className="total">
           <p>Total</p>
-          <p>Rs'0.00'</p>
+          <p>Rs. {total.toFixed(2)}</p>
       </div>
       <button className="btn-add">Checkout</button>
     </div>
