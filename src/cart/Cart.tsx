@@ -17,6 +17,7 @@ interface Props extends PropsFromCartState {
 const Cart = ({itemsInCart, removeCustomBox}: Props): JSX.Element => {
 
   const customBoxes = Object.entries(itemsInCart.customBoxes);
+  let subTotal = 0;
   
   return (
     <div className="cart">
@@ -24,23 +25,27 @@ const Cart = ({itemsInCart, removeCustomBox}: Props): JSX.Element => {
       <h4>Your cart is empty</h4>
 
       {itemsInCart.boxes && itemsInCart.boxes.length ? 
-      itemsInCart.boxes.map((item, index) => <BoxItem key={item.id + index} selectedItem={item} />) : null}
+      itemsInCart.boxes.map((item, index) => {
+        subTotal = subTotal + item.price;
+        return <BoxItem key={item.id + index} selectedItem={item} />
+      }) : null}
 
       {customBoxes && customBoxes.length ? 
       customBoxes.map(([key, value], index) => {
+        subTotal = subTotal + value.total;
         return (
           <div key={key}>
             <p style={{fontSize: '1.3rem'}}>Custom Box {index + 1}</p>
             <FontAwesomeIcon className="product-remove" icon={faTrashAlt} 
             onClick={() => removeCustomBox(key)} />
-            {value.map((item, index) => <BoxItem key={item.id + index} selectedItem={item} disableDelete={true} />)}
+            {value.cartItems.map((item, index) => <BoxItem key={item.id + index} selectedItem={item} disableDelete={true} />)}
           </div>);
       }): null}
       
       <div className="subtotal">
         <div className="subtotal-row">
           <span>Subtotal</span>
-          <span>Rs'0.00'</span>
+          <span>Rs.{subTotal.toFixed(2)}</span>
         </div>
         <div className="subtotal-row">
           <span>Shipping</span>
