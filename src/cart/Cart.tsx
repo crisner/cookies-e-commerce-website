@@ -20,11 +20,12 @@ const Cart = ({itemsInCart, removeCustomBox}: Props): JSX.Element => {
   let total = 0;
   let subTotal = 0;
   const shipping = 300;
+  let totalNumInCart = itemsInCart.boxes.length + customBoxes.length;
   
   return (
     <div className="cart">
       <h1>Cart</h1>
-      <h4>Your cart is empty</h4>
+      <h4>{totalNumInCart ? `You have ${totalNumInCart} boxes in your cart` : 'Your cart is empty'}</h4>
 
       {itemsInCart.boxes && itemsInCart.boxes.length ? 
       itemsInCart.boxes.map((item, index) => {
