@@ -9,6 +9,7 @@ const Home = () : JSX.Element => (
     <Collections heading="Browse our popular collections" />
     <div className="cta-container">
       <CTASection 
+      redirectOnClick="build-a-box"
       class="build-a-box" 
       backgroundColor="#ce6d52" 
       image="src/images/box1.png" 

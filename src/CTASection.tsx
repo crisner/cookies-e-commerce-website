@@ -8,6 +8,7 @@ interface CTAProps {
   text: string,
   buttonText?: string,
   class?: string
+  redirectOnClick?: string
 }
 
 
