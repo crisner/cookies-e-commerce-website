@@ -9,6 +9,7 @@ import Footer from './Footer';
 import Home from './main/Home';
 import Products from './products/Products';
 import BuildABox from './buildABox/BuildABox';
+import Contact from './Contact';
 import Cart from './cart/Cart'
 
 const App = (): JSX.Element => (
@@ -17,6 +18,9 @@ const App = (): JSX.Element => (
     <Switch>
       <Route path="/cart">
         <Cart />
+      </Route>
+      <Route path="/contact">
+        <Contact/> 
       </Route>
       <Route path="/build-a-box">
         <div className="build-a-box-page">
