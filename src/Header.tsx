@@ -19,7 +19,7 @@ const Header = (): JSX.Element => (
       <li><Link to="/">Home</Link></li>
       <li><Link to="/cookies">Cookies</Link></li>
       <li><Link to="/build-a-box">Build your own box</Link></li>
-      {/* <li><Link to="/">Contact</Link></li> */}
+      <li><Link to="/contact">Contact</Link></li>
     </ul>
   </header>
 )
