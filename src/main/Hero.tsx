@@ -1,11 +1,14 @@
 import React from 'react';
+import { useHistory } from "react-router-dom";
 
-const Hero = () : JSX.Element => (
-  <div className="hero">
-    <h2>Delight your tastebuds to cookies that are as light as clouds ands tastes like heaven!</h2>
-    <button className="cta">SHOP NOW</button>
-    {/* <img src="../public/images/hero_pattern.png" alt="rows of cookies" /> */}
-  </div>
-)
+const Hero = () : JSX.Element => {
+  const history = useHistory();
+  return (
+    <div className="hero">
+      <h2>Delight your tastebuds to cookies that are as light as clouds ands tastes like heaven!</h2>
+      <button className="cta" onClick={() => history.push('/cookies')}>SHOP NOW</button>
+    </div>
+  )
+}
 
 export default Hero;
