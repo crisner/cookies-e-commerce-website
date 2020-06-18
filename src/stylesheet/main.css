@@ -751,3 +751,75 @@ main .order-now .text {
 .contact .bulk-orders p {
   font-size: 1.4rem;
 }
+
+/* ------------------------- */
+/* -------- Sign in -------- */
+/* ------------------------- */
+.sign-in {
+  margin: 6rem auto;
+  max-width: 75%;
+}
+
+.sign-in h2 {
+  text-align: center;
+}
+
+.sign-in .form-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.sign-in .form,
+.sign-in .options {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 40%;
+}
+
+.sign-in .options {
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.sign-in .form .cta {
+  background-color: #ce6d52;
+  border-radius: 2px;
+  color: #fcf6f2;
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+  border: none;
+  margin: 3.5rem 0 1rem;
+  padding: 0.8rem 4rem;
+  box-shadow: 0px 1px 2px #23232361;
+  cursor: pointer;
+  width: 100%;
+}
+
+.sign-in .form .input-field {
+  margin-right: 0.6rem;
+  background-color: #fcf6f2;
+  border-radius: 2px;
+  color:#4f4741;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 500;
+  letter-spacing: 0.1rem;
+  border: none;
+  padding: 0.65rem 1rem;
+  border-bottom: 2px solid #4f4741;
+}
+
+.sign-in .form label {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
