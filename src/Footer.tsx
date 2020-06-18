@@ -25,7 +25,7 @@ const Footer = () => (
       <form action="" method="post">
         <label htmlFor="email">
           <h3 className="text">Sign up for news and offers</h3>
-          <input className="input-field" type="email" name="email" id="email" placeholder="Your email address" />
+          <input className="input-field" type="email" name="email" id="subscribe" placeholder="Your email address" />
         </label>
         <input className="cta" type="button" value="Submit"/>
       </form>
