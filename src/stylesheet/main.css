@@ -34,8 +34,7 @@ header .links {
   font-weight: 600;
 }
 
-header .links svg,
-header .links a {
+header .links svg {
   padding-right: 1em;
   color: #4f4741;
   text-decoration: none;
