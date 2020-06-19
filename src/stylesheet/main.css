@@ -754,16 +754,19 @@ main .order-now .text {
 /* ------------------------- */
 /* -------- Sign in -------- */
 /* ------------------------- */
-.sign-in {
+.sign-in,
+.signup {
   margin: 6rem auto;
   max-width: 75%;
 }
 
-.sign-in h2 {
+.sign-in h2,
+.signup h2 {
   text-align: center;
 }
 
-.sign-in .form-container {
+.sign-in .form-container,
+.signup .form-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -772,6 +775,7 @@ main .order-now .text {
 }
 
 .sign-in .form,
+.signup .form,
 .sign-in .options {
   display: flex;
   flex-direction: column;
@@ -785,7 +789,8 @@ main .order-now .text {
   justify-content: space-between;
 }
 
-.sign-in .form .cta {
+.sign-in .form .cta,
+.signup .form .cta {
   background-color: #ce6d52;
   border-radius: 2px;
   color: #fcf6f2;
@@ -802,7 +807,8 @@ main .order-now .text {
   width: 100%;
 }
 
-.sign-in .form .input-field {
+.sign-in .form .input-field,
+.signup .form .input-field {
   margin-right: 0.6rem;
   background-color: #fcf6f2;
   border-radius: 2px;
@@ -816,9 +822,12 @@ main .order-now .text {
   border-bottom: 2px solid #4f4741;
 }
 
-.sign-in .form label {
+.sign-in .form label,
+.signup .form label {
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  margin-bottom: 1rem;
 }
+

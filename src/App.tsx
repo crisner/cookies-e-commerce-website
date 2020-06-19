@@ -10,13 +10,17 @@ import Home from './main/Home';
 import Products from './products/Products';
 import BuildABox from './buildABox/BuildABox';
 import Contact from './Contact';
-import SignIn from './user-authentication/Signin';
+import SignIn from './user-authentication/SignIn';
+import SignUp from './user-authentication/SignUp';
 import Cart from './cart/Cart'
 
 const App = (): JSX.Element => (
   <Router>
     <Header />
     <Switch>
+      <Route path="/signup">
+        <SignUp />
+      </Route>
       <Route path="/signin">
         <SignIn />
       </Route>
