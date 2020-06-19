@@ -831,3 +831,55 @@ main .order-now .text {
   margin-bottom: 1rem;
 }
 
+/* ------------------------- */
+/* -------- Profile -------- */
+/* ------------------------- */
+.user-profile {
+  margin: 6rem auto;
+  max-width: 75%;
+}
+
+.user-profile h2 svg {
+  font-size: 1rem;
+  margin: 0 0.5rem;
+}
+
+.user-profile .information-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.user-profile .primary-details {
+  display: flex;
+  /* align-items: center; */
+  width: 50%;
+}
+
+.user-profile .user-picture {
+  font-size: 125px;
+  width: 15%;
+}
+
+.user-profile .primary-details .user-name,
+.user-profile .primary-details .user-contact {
+  width: 50%;
+}
+
+/* .user-profile .primary-details h5, */
+.user-profile .user-details h4,
+.user-profile .address-information h4,
+.user-profile .address-information .address-section-1 {
+  margin: 1rem;
+}
+
+.user-profile .address-information .address-section-2,
+.user-profile .address-information .address-section-3 {
+  display: flex;
+}
+
+.user-profile .user-details {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}

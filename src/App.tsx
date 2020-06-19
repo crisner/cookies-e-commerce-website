@@ -12,12 +12,16 @@ import BuildABox from './buildABox/BuildABox';
 import Contact from './Contact';
 import SignIn from './user-authentication/SignIn';
 import SignUp from './user-authentication/SignUp';
+import UserProfile from './user/Profile';
 import Cart from './cart/Cart'
 
 const App = (): JSX.Element => (
   <Router>
     <Header />
     <Switch>
+      <Route path="/profile">
+        <UserProfile />
+      </Route>
       <Route path="/signup">
         <SignUp />
       </Route>
