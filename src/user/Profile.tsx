@@ -11,7 +11,6 @@ const UserProfile = (): JSX.Element => (
     </div>
     <div className="information-container">
       <div className="primary-details">
-        <div className="user-name">
           <div className="user-details">
             <h4>First Name</h4>
             <p>John</p>
@@ -20,8 +19,6 @@ const UserProfile = (): JSX.Element => (
             <h4>Last Name</h4>
             <p>Doe</p>
           </div>
-        </div>
-        <div className="user-contact">
           <div className="user-details">
             <h4>Email</h4>
             <p>johndoe@jd.com</p>
@@ -30,7 +27,6 @@ const UserProfile = (): JSX.Element => (
             <h4>Phone number</h4>
             <p>000-000-0000</p>
           </div>
-        </div> 
       </div>
       <div className="address-information">
         <h4>Address</h4>
