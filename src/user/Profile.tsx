@@ -5,7 +5,7 @@ import { faUserCircle, faEdit } from '@fortawesome/free-solid-svg-icons';
 
 const UserProfile = (): JSX.Element => (
   <div className="user-profile">
-    <h2>Profile<span><Link to="/profile?edit=true"><FontAwesomeIcon icon={faEdit} /></Link></span></h2>
+    <h2>Profile<span><Link to="/editprofile"><FontAwesomeIcon icon={faEdit} /></Link></span></h2>
     <div className="user-picture">
       <FontAwesomeIcon icon={faUserCircle} />
     </div>

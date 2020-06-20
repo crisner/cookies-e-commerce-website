@@ -13,12 +13,16 @@ import Contact from './Contact';
 import SignIn from './user-authentication/SignIn';
 import SignUp from './user-authentication/SignUp';
 import UserProfile from './user/Profile';
+import UserProfileEdit from './user/EditProfile';
 import Cart from './cart/Cart'
 
 const App = (): JSX.Element => (
   <Router>
     <Header />
     <Switch>
+      <Route path="/editprofile">
+        <UserProfileEdit />
+      </Route>
       <Route path="/profile">
         <UserProfile />
       </Route>

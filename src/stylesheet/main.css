@@ -834,9 +834,18 @@ main .order-now .text {
 /* ------------------------- */
 /* -------- Profile -------- */
 /* ------------------------- */
-.user-profile {
+.user-profile,
+.user-profile-form {
   margin: 6rem auto;
   max-width: 75%;
+}
+
+.user-profile-form .form-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 
 .user-profile h2 svg {
@@ -852,7 +861,6 @@ main .order-now .text {
 
 .user-profile .primary-details {
   display: flex;
-  /* align-items: center; */
   width: 50%;
 }
 
@@ -861,12 +869,18 @@ main .order-now .text {
   width: 15%;
 }
 
+.user-profile-form .user-picture {
+  font-size: 125px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .user-profile .primary-details .user-name,
 .user-profile .primary-details .user-contact {
   width: 50%;
 }
 
-/* .user-profile .primary-details h5, */
 .user-profile .user-details h4,
 .user-profile .address-information h4,
 .user-profile .address-information .address-section-1 {
@@ -882,4 +896,52 @@ main .order-now .text {
   display: flex;
   align-items: center;
   width: 100%;
+}
+
+.user-profile-form .user-details {
+  display: flex;
+  width: 50%;
+}
+
+.user-profile-form label {
+  width: 50%;
+}
+
+.user-profile-form .address-section-1 {
+  width: 50%;
+}
+
+.user-profile-form .address-section-1 .input-field {
+  width: 95%;
+}
+
+.user-profile-form .input-field {
+  margin-right: 0.6rem;
+  border-radius: 2px;
+  color:#4f4741;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 500;
+  letter-spacing: 0.1rem;
+  border: 1px solid #ece5dc;
+  padding: 0.65rem 1rem;
+  box-shadow: 0px 1px 2px #23232317;
+  width: 90%;
+}
+
+.user-profile-form .cta {
+  background-color: #ce6d52;
+  border-radius: 2px;
+  color: #fcf6f2;
+  font-family: 'Roboto Condensed', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+  border: none;
+  margin: 3.5rem 0 1rem;
+  padding: 0.8rem 4rem;
+  box-shadow: 0px 1px 2px #23232361;
+  cursor: pointer;
+  width: 50%;
 }
