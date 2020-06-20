@@ -17,6 +17,10 @@ const SignUp = (): JSX.Element => (
           <h4>Username</h4>
           <input className="input-field" type="text" name="username" id="username" />
         </label>
+        <label htmlFor="email">
+          <h4>Email</h4>
+          <input className="input-field" type="email" name="email" id="email" />
+        </label>
         <label htmlFor="password">
           <h4>Password</h4>
           <input className="input-field" type="password" name="password" id="password" />
