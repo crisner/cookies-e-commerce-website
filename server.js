@@ -3,11 +3,14 @@ const mongoose = require('mongoose');
 
 const app = express();
 
+// DB config
+const db = require('./config/keys').mongoURI;
+
 // Connect to mongo
 mongoose
-.connect('mongodb://localhost:27017/cookiesinc', {useNewUrlParser: true})
-.then(() => console.log('mongo connected'))
-.catch(err => console.log(err));
+  .connect(db, {useNewUrlParser: true})
+  .then(() => console.log('mongo connected'))
+  .catch(err => console.log(err));
 
 const port = process.env.PORT || 5000;
 
