@@ -1,6 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 
+const products = require('./routes/api');
+
 const app = express();
 
 // DB config
@@ -11,6 +13,9 @@ mongoose
   .connect(db, {useNewUrlParser: true})
   .then(() => console.log('mongo connected'))
   .catch(err => console.log(err));
+
+// Use Routes
+app.use('/api/products', products)
 
 const port = process.env.PORT || 5000;
 
