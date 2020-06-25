@@ -3,7 +3,12 @@ import React from 'react';
 const SignUp = (): JSX.Element => (
   <div className="signup">
     <h2>New User</h2>
+    
     <div className="form-container">
+      <div className="alternate-sign-up">
+        <h4>Sign up with Google or fill up the form to create a new account.</h4>
+        <button className="cta" type="submit">Google</button>
+      </div>
       <form className="form" action="" method="post">
         <label htmlFor="firstname">
           <h4>First Name</h4>

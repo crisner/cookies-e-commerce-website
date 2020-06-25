@@ -8,7 +8,7 @@ const SignIn = () => (
       <form className="form" action="" method="post">
         <label htmlFor="email">
           <h4>Email</h4>
-          <input className="input-field" type="email" name="email" id="email" autoFocus={true} />
+          <input className="input-field" type="email" name="email" id="email" />
         </label>
         <label htmlFor="password">
           <h4>Password</h4>
@@ -19,6 +19,10 @@ const SignIn = () => (
       <div className="options">
         <p>Forgot your password?</p>
         <p><Link to="/signup">New user? Sign Up</Link></p>
+      </div>
+      <div className="alternate-sign-in">
+        <p>or sign in with</p>
+        <button className="cta" type="submit">Google</button>
       </div>
     </div>
     
