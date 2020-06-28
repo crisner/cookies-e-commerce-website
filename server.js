@@ -1,6 +1,10 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const cookieSession = require('cookie-session');
+const passport = require('passport');
+require('./services/passport');
 
+const keys = require('./config/keys');
 const products = require('./routes/api/products');
 
 const app = express();
@@ -8,7 +12,7 @@ const app = express();
 app.use(express.json());
 
 // DB config
-const db = require('./config/keys').mongoURI;
+const db = keys.mongoURI;
 
 // Connect to mongo
 mongoose
@@ -19,8 +23,19 @@ mongoose
   .then(() => console.log('mongo connected'))
   .catch(err => console.log(err));
 
+// Use cookies for session storage
+app.use(
+  cookieSession({
+    maxAge: 30 * 24 * 60 * 60 * 1000,
+    keys: [keys.cookieKey]
+  })
+);
+app.use(passport.initialize());
+app.use(passport.session());
+
 // Use Routes
 app.use('/api/products', products)
+require('./routes/authRoutes')(app);
 
 const port = process.env.PORT || 5000;
 
