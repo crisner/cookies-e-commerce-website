@@ -24,6 +24,10 @@ module.exports = {
   watch: true,
   devServer: {
     historyApiFallback: true,
+    proxy: [{
+      context: ['/auth', '/api'],
+      target: 'http://localhost:5000',
+    }]
   },
   plugins: [
     new HtmlWebpackPlugin({
