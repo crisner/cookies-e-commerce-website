@@ -22,10 +22,11 @@ const SignIn = () => (
       </div>
       <div className="alternate-sign-in">
         <p>or sign in with</p>
-        <button className="cta" type="submit">Google</button>
+        <button className="cta" onClick={() => {
+          window.location.pathname = "/auth/google";
+        }}>Google</button>
       </div>
     </div>
-    
   </div>
 )
 

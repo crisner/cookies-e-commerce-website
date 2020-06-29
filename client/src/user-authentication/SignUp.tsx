@@ -7,7 +7,9 @@ const SignUp = (): JSX.Element => (
     <div className="form-container">
       <div className="alternate-sign-up">
         <h4>Sign up with Google or fill up the form to create a new account.</h4>
-        <button className="cta" type="submit">Google</button>
+        <button className="cta" onClick={() => {
+          window.location.pathname = "/auth/google";
+        }}>Google</button>
       </div>
       <form className="form" action="" method="post">
         <label htmlFor="firstname">
