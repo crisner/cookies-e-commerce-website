@@ -3,8 +3,9 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faShoppingBag, faUser } from '@fortawesome/free-solid-svg-icons';
 
-const Header = (): JSX.Element => (
+const Header = (props): JSX.Element => (
   <header>
+    {console.log(props)}
     <div className="top">
       <div className="logo">
         <img src="src/images/logo-cookiefill.svg" width="140px" alt="logo" />
