@@ -10,11 +10,17 @@ passport.serializeUser((user, done) => {
   done(null, user.id);
 });
 
-passport.deserializeUser((id, done) => {
-  User.findById(id).then(user => {
+passport.deserializeUser(async (id, done) => {
+  try {
+    const user = await User.findById(id);
+    if(!user) {
+      return done(new Error('User not found'));
+    };
     done(null, user);
-  });
-})
+  } catch(err) {
+    done(err);
+  }
+});
 
 // Google authentication
 const GOOGLE_CLIENT_ID = keys.googleClientId;
@@ -23,17 +29,19 @@ const GOOGLE_CLIENT_SECRET = keys.googleClientSecret;
 passport.use(new GoogleStrategy({
   clientID: GOOGLE_CLIENT_ID,
   clientSecret: GOOGLE_CLIENT_SECRET,
-  callbackURL: "/auth/google/callback"
+  callbackURL: "/auth/google/callback",
+  proxy: true
 },
-(accessToken, refreshToken, profile, done) => {
-  User.findOne({ googleId: profile.id }).then(user => {
+async (accessToken, refreshToken, profile, done) => {
+  try {
+    const user = await User.findOne({ googleId: profile.id });
     if(user) {
-      done(null, user);
-    } else {
-      new User({ googleId: profile.id }).save()
-      .then(user => done(null, user));
-      
+      return done(null, user);
     }
-  });
+    const newUser = await new User({ googleId: profile.id }).save();
+    done(null, newUser);
+  } catch(err) {
+    done(err);
+  }
 }
 )); 
