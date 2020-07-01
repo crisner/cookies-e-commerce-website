@@ -5,7 +5,12 @@ const Dropdown = (props): JSX.Element => (
   <div className="dropdown-menu" id={props.id}>
     {Object.entries(props.data)
     .map(([text, route], index) => (
-      <li key={`${props.id}-${index}`} className="dropdown-item">
+      <li key={`${props.id}-${index}`} 
+      className="dropdown-item" 
+      onClick={() => (
+        text === 'Logout' ? 
+        window.location.reload(true) : null
+      )}>
         <Link to={route}>{text}</Link>
       </li>)
     )}
