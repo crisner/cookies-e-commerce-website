@@ -73,6 +73,30 @@ header .menu li a:hover {
   color: #776c64;
 }
 
+/* Dropdown */
+.dropdown-menu {
+  position: absolute;
+  background: #fcf6f2;
+  top: 50px;
+  right: 6px;
+  min-width: 15%;
+  width: fit-content;
+  max-width: 100%;
+  border: 2px solid #776c64;
+  border-radius: 4%;
+  padding: 1rem;
+  list-style: none;
+}
+
+.dropdown-item {
+  padding: 0.6rem;
+  cursor: pointer;
+}
+
+.dropdown-item:hover {
+  background-color: #ece5dc;
+}
+
 /**  Footer  **/
 footer {
   display: flex;
