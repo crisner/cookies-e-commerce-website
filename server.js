@@ -6,6 +6,7 @@ require('./services/passport');
 
 const keys = require('./config/keys');
 const products = require('./routes/api/products');
+const users = require('./routes/api/users');
 
 const app = express();
 
@@ -35,6 +36,7 @@ app.use(passport.session());
 
 // Use Routes
 app.use('/api/products', products)
+app.use('/api/users', users)
 require('./routes/authRoutes')(app);
 
 const port = process.env.PORT || 5000;
