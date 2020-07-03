@@ -62,7 +62,7 @@ router.patch('/:id', async (req, res) => {
       return res.status(404).send('User does not exist');
     }
     res.send(user);
-  } catch(e) {
+  } catch(err) {
     res.status(400).send(err)
   }
 })
