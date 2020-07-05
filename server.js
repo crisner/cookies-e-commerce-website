@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cookieSession = require('cookie-session');
 const passport = require('passport');
+const flash = require('connect-flash');
 require('./services/passport');
 
 const keys = require('./config/keys');
@@ -31,6 +32,7 @@ app.use(
     keys: [keys.cookieKey]
   })
 );
+app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 
