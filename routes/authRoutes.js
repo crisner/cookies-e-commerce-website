@@ -12,7 +12,19 @@ module.exports = (app) => {
     }
   );
 
-  app.get('/api/logout', (req, res) => {
+  app.post('/auth/signup',
+  passport.authenticate('local-signup', { successRedirect: '/',
+                                   failureRedirect: '/auth/signup',
+                                   failureFlash: true })
+  );
+
+  app.post('/auth/login',
+  passport.authenticate('local-login', { successRedirect: '/',
+                                   failureRedirect: '/auth/login',
+                                   failureFlash: true })
+  );
+
+  app.get('/auth/logout', (req, res) => {
     req.logout();
     res.status(200);
     res.redirect('/');
