@@ -36,6 +36,13 @@ const UserSchema = new Schema ({
   }
 })
 
+// checking if password is valid
+UserSchema.methods.isValidPassword = (password, userPassword) => {
+  const isMatch = bcrypt.compare(password, userPassword);
+  return isMatch;
+};
+
+// Hash password before save()
 UserSchema.pre('save', async function (next) {
   const user = this;
   if(user.isModified('password')) {
