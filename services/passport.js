@@ -55,12 +55,13 @@ passport.use('local-login', new LocalStrategy(
     passwordField: 'password'
   },
   function(email, password, done) {
-    User.findOne({ email }, function(err, user) {
+    User.findOne({ email }, async function(err, user) {
       if (err) { return done(err); }
       if (!user) {
         return done(null, false, { message: 'Incorrect email or password' });
       }
-      if (!user.isValidPassword(password, user.password)) {
+      const isValidPassword = await user.isValidPassword(password, user.password);
+      if (!isValidPassword) {
         return done(null, false, { message: 'Incorrect email or password' });
       }
       return done(null, user);
