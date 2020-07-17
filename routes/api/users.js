@@ -31,16 +31,22 @@ router.get('/:id', async (req, res) => {
   }
 })
 
+// Login user
+// router.get('/login', async (req, res) => {
+//   const user = await findByCredentials(req.body.email, req.body.password)
+// })
+
 // Post a new user
-router.post('/', async (req, res) => {
-  const newUser = new User(req.body);
-  try {
-    await newUser.save();
-    res.status(201).send(newUser)
-  } catch(err) {
-    res.status(400).send(err)
-  }
-})
+// router.post('/', async (req, res) => {
+//   console.log(req.isAuthenticated())
+  // const newUser = new User(req.body);
+  // try {
+  //   await newUser.save();
+  //   res.status(201).send(newUser)
+  // } catch(err) {
+  //   res.status(400).send(err)
+  // }
+// })
 
 // Update user
 router.patch('/:id', async (req, res) => {
