@@ -52,7 +52,8 @@ async (accessToken, refreshToken, profile, done) => {
 passport.use('local-login', new LocalStrategy(
   {
     usernameField: 'email',
-    passwordField: 'password'
+    passwordField: 'password',
+    session: false
   },
   function(email, password, done) {
     User.findOne({ email }, async function(err, user) {
@@ -74,7 +75,8 @@ passport.use('local-signup', new LocalStrategy(
   {
     usernameField: 'email',
     passwordField: 'password',
-    passReqToCallback : true
+    passReqToCallback : true,
+    session: false
   },
   function(req, email, password, done) {
     // process.nextTick(function() {
@@ -84,7 +86,8 @@ passport.use('local-signup', new LocalStrategy(
         }
         // Check if email exists
         if (user) {
-          return done(null, false, req.flash('signupMessage', 'An account is already associated with this email.'));
+          return done(null, false, { message: 'Incorrect email or password' });
+          // req.flash('signupMessage', 'An account is already associated with this email.')
         }
         // Save new user
         const newUser = new User(req.body);
@@ -98,3 +101,31 @@ passport.use('local-signup', new LocalStrategy(
     // })
   }
 ));
+
+// JWT config
+const JwtStrategy = require('passport-jwt').Strategy;
+const options = {
+  jwtFromRequest: req => req.cookies.jwt,
+  secretOrKey: keys.jwtSecret
+};
+
+passport.use('jwt', new JwtStrategy(options, function(jwt_payload, done) {
+  const _id = jwt_payload.id;
+  try {
+    User.findOne({ _id }, function(err, user) {
+      if (err) {
+        console.log('err:', err)
+          return done(err, false);
+      }
+      if (user) {
+        console.log('user:', user)
+          return done(null, user);
+      } else {
+          return done(null, false);
+      }
+    });
+  } catch (e) {
+    console.log(e)
+  }
+    
+}));
