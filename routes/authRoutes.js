@@ -1,4 +1,5 @@
 const passport = require('passport');
+const isAuth = require('../services/authMiddleware').isAuth;
 
 module.exports = (app) => {
   app.get('/auth/google',
@@ -65,7 +66,7 @@ module.exports = (app) => {
     res.redirect('/');
   })
 
-  app.get('/api/user', passport.authenticate('jwt', { session: false }), (req, res) => {
+  app.get('/api/user', isAuth, (req, res) => {
     res.send(req.user);
   })
 };
