@@ -115,17 +115,16 @@ passport.use('jwt', new JwtStrategy(options, function(jwt_payload, done) {
     User.findOne({ _id }, function(err, user) {
       if (err) {
         console.log('err:', err)
-          return done(err, false);
+        return done(err, false);
       }
       if (user) {
-        console.log('user:', user)
-          return done(null, user);
+        return done(null, user);
       } else {
-          return done(null, false);
+        return done(null, false);
       }
     });
-  } catch (e) {
-    console.log(e)
+  } catch (err) {
+    return done(err, false);
   }
     
 }));
