@@ -2,6 +2,8 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const validator = require('validator');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const keys = require('../config/keys');
 
 const UserSchema = new Schema ({
   googleId: String,
@@ -27,15 +29,34 @@ const UserSchema = new Schema ({
     type: String,
     required: true,
     minlength: [6, 'Password too short'],
-    maxlength: [10, 'Password is too long'],
+    // maxlength: [10, 'Password is too long'],
     trim: true,
     validate(value) {
       if(value.toLowerCase().includes('password')) {
         throw new Error('Password cannot contain the word \'password\'');
       }
     }
-  }
+  },
+  tokens: [{
+    token: {
+      type: String,
+      required: true
+    }
+  }]
 })
+
+// Generate auth tokens
+UserSchema.methods.generateAuthToken = async function(payload) {
+  const user = this;
+  // Generate a signed web token
+  const token = jwt.sign(payload, keys.jwtSecret, {expiresIn: '3d'});
+
+  // Save token to the user
+  user.tokens = user.tokens.concat({ token });
+  await user.save();
+
+  return token;
+}
 
 // checking if password is valid
 UserSchema.methods.isValidPassword = (password, userPassword) => {
