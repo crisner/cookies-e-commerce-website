@@ -24,7 +24,9 @@ const isAuth = (req, res, next) => {
         if (err) {
           return next(err); 
         }
-        return res.json({message: 'success'});
+        req.token = req.cookies.jwt;
+        req.user = user;
+        next();
       });
 
     } catch (err) {

@@ -60,10 +60,15 @@ module.exports = (app) => {
     )(req, res);
   });
 
-  app.get('/auth/logout', (req, res) => {
-    req.logout();
-    res.status(200);
-    res.redirect('/');
+  app.post('/auth/logout', isAuth, async (req, res) => {
+    try {
+      req.user.tokens = req.user.tokens.filter(token => token.token !== req.token);
+      await req.user.save();
+      res.status(200);
+      res.redirect('/');
+    } catch(err) {
+      res.status(500).send();
+    }
   })
 
   app.get('/api/user', isAuth, (req, res) => {
