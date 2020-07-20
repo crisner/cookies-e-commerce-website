@@ -32,18 +32,56 @@ passport.use(new GoogleStrategy({
   clientID: GOOGLE_CLIENT_ID,
   clientSecret: GOOGLE_CLIENT_SECRET,
   callbackURL: "/auth/google/callback",
+  passReqToCallback : true,
   proxy: true
 },
-async (accessToken, refreshToken, profile, done) => {
-  try {
-    const user = await User.findOne({ googleId: profile.id });
-    if(user) {
-      return done(null, user);
+async (req, token, refreshToken, profile, done) => {
+  if (!req.user) {
+    try {
+      const user = await User.findOne({ googleId: profile.id });
+      if(user) {
+        // if there no token (user was linked at one point and then removed)
+        if (!user.google.token) {
+          user.google.token = token;
+          user.google.name  = profile.displayName;
+          user.google.email = profile.emails[0].value;
+
+          await user.save(function(err) {
+              if (err)
+                  throw err;
+              return done(null, user);
+          });
+        }
+        return done(null, user);
+      } else {
+        const newUser = await new User({ 
+          google: {
+            googleId: profile.id,
+            token: token,
+            name : profile.displayName,
+            email: profile.emails[0].value
+          }
+        }).save();
+               
+        done(null, newUser);
+      }
+    } catch(err) {
+      done(err);
     }
-    const newUser = await new User({ googleId: profile.id }).save();
-    done(null, newUser);
-  } catch(err) {
-    done(err);
+  } else {
+    // user already exists and is logged in, link accounts
+    try {
+      const user = req.user;
+      user.google.googleId = profile.id;
+      user.google.token = token;
+      user.google.name  = profile.displayName;
+      user.google.email = profile.emails[0].value;
+  
+      await user.save();
+      done(null, user);
+    } catch(err) {
+      done(err);
+    }
   }
 }
 )); 
