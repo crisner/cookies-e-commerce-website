@@ -6,43 +6,51 @@ const jwt = require('jsonwebtoken');
 const keys = require('../config/keys');
 
 const UserSchema = new Schema ({
-  googleId: String,
-  firstName: String,
-  lastName: String,
-  userName: {
-    type: String,
-    default: 'User'
-  },
-  email: {
-    type: String,
-    required: true,
-    trim: true,
-    unique: true,
-    lowercase: true,
-    validate(value) {
-      if(!validator.isEmail(value)) {
-        throw new Error('Email is invalid!');
-      }
-    }
-  },
-  password: {
-    type: String,
-    required: true,
-    minlength: [6, 'Password too short'],
-    // maxlength: [10, 'Password is too long'],
-    trim: true,
-    validate(value) {
-      if(value.toLowerCase().includes('password')) {
-        throw new Error('Password cannot contain the word \'password\'');
-      }
-    }
-  },
-  tokens: [{
-    token: {
+  local: {
+    firstName: String,
+    lastName: String,
+    userName: {
       type: String,
-      required: true
-    }
-  }]
+      default: 'User'
+    },
+    email: {
+      type: String,
+      required: true,
+      trim: true,
+      unique: true,
+      lowercase: true,
+      validate(value) {
+        if(!validator.isEmail(value)) {
+          throw new Error('Email is invalid!');
+        }
+      }
+    },
+    password: {
+      type: String,
+      required: true,
+      minlength: [6, 'Password too short'],
+      // maxlength: [10, 'Password is too long'],
+      trim: true,
+      validate(value) {
+        if(value.toLowerCase().includes('password')) {
+          throw new Error('Password cannot contain the word \'password\'');
+        }
+      }
+    },
+    tokens: [{
+      token: {
+        type: String,
+        required: true
+      }
+    }]
+  },
+
+  google: {
+    googleId: String,
+    token:String,
+    email: String,
+    name: String
+  }
 })
 
 // Hide sensitive data
