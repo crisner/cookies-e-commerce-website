@@ -86,7 +86,7 @@ async (req, token, refreshToken, profile, done) => {
 }
 )); 
 
-// Email/password login authentication
+// Local login authentication (Email/password)
 passport.use('local-login', new LocalStrategy(
   {
     usernameField: 'email',
@@ -94,12 +94,14 @@ passport.use('local-login', new LocalStrategy(
     session: false
   },
   function(email, password, done) {
-    User.findOne({ email }, async function(err, user) {
-      if (err) { return done(err); }
+    User.findOne({ 'local.email': email }, async function(err, user) {
+      if (err) { 
+        return done(err); 
+      }
       if (!user) {
         return done(null, false, { message: 'Incorrect email or password' });
       }
-      const isValidPassword = await user.isValidPassword(password, user.password);
+      const isValidPassword = await user.isValidPassword(password, user.local.password);
       if (!isValidPassword) {
         return done(null, false, { message: 'Incorrect email or password' });
       }
@@ -108,7 +110,7 @@ passport.use('local-login', new LocalStrategy(
   }
 ));
 
-// Email/password signup authentication
+// Local signup authentication (Email/password)
 passport.use('local-signup', new LocalStrategy(
   {
     usernameField: 'email',
@@ -118,22 +120,38 @@ passport.use('local-signup', new LocalStrategy(
   },
   function(req, email, password, done) {
     // process.nextTick(function() {
-      User.findOne({ email }, async function(err, user) {
+      User.findOne({ 'local.email': email }, async function(err, user) {
         if (err) {
           return done(err);
         }
         // Check if email exists
         if (user) {
-          return done(null, false, { message: 'Incorrect email or password' });
+          return done(null, false, { message: 'Email already exists.' });
           // req.flash('signupMessage', 'An account is already associated with this email.')
         }
-        // Save new user
-        const newUser = new User(req.body);
-        try {
-          await newUser.save();
-          done(null, newUser);
-        } catch(err) {
-          done(err);
+
+        //  Connect a new local account if logged in
+        if(req.user && !req.user.local.email) {
+          try {
+            const user = req.user;
+            user.local.email = email;
+            user.local.password = password;
+            user.save();
+            return done(null, user);
+          } catch(err) {
+            throw err;
+          }
+        } else {
+          // Save new user
+          const newUser = new User();
+          newUser.local.email = email;
+          newUser.local.password = password;
+          try {
+            await newUser.save();
+            done(null, newUser);
+          } catch(err) {
+            done(err);
+          }
         }
       });
     // })
