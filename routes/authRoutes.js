@@ -85,4 +85,35 @@ module.exports = (app) => {
   app.get('/api/user', isAuth, (req, res) => {
     res.send(req.user);
   })
+
+  // Routes to connect strategies to user account if logged in
+  // Link local authentication
+  app.post('/connect/local', passport.authenticate('local-signup', {
+    successRedirect : '/profile',
+    failureRedirect : '/account',
+    failureFlash : true
+  }));
+
+  // Link Google authentication
+  app.get('/connect/google', passport.authorize('google', { scope : ['profile', 'email'] }));
+
+  app.get('/connect/google/callback',
+    passport.authorize('google', {
+      successRedirect : '/profile',
+      failureRedirect : '/'
+  }));
+
+  // Unlink accounts that use third party services
+  app.get('/unlink/google', async function(req, res) {
+    try {
+      const user = req.user;
+      user.google.googleId = undefined;
+      user.google.token = undefined;
+      await user.save();
+      res.redirect('/profile');
+    } catch(err) {
+      throw err;
+    }	
+	});
+
 };
