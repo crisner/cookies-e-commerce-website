@@ -75,6 +75,7 @@ module.exports = (app) => {
     try {
       req.user.tokens = req.user.tokens.filter(token => token.token !== req.token);
       await req.user.save();
+      req.logout(); 
       res.status(200);
       res.redirect('/');
     } catch(err) {
