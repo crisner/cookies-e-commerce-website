@@ -71,13 +71,20 @@ module.exports = (app) => {
     }
   })
 
+  app.get('/auth/logout', isAuth, async (req, res) => {
+    try {
+      req.logout(); 
+      res.status(200);
+      res.redirect('/');
+    } catch(err) {
+      res.status(500).send();
+    }
+  })
+
   app.post('/auth/logout', isAuth, async (req, res) => {
     try {
       req.user.tokens = req.user.tokens.filter(token => token.token !== req.token);
       await req.user.save();
-      req.logout(); 
-      res.status(200);
-      res.redirect('/');
     } catch(err) {
       res.status(500).send();
     }
