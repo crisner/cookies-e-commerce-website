@@ -1,7 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
-// const cookieSession = require('cookie-session');
-const cookieParser = require('cookie-parser')
+const cookieSession = require('cookie-session');
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
 const passport = require('passport');
 const flash = require('connect-flash');
 require('./services/passport');
@@ -34,6 +35,18 @@ mongoose
 //     keys: [keys.cookieKey]
 //   })
 // );
+// app.set('trust proxy', 1);
+app.use(
+  session({
+    secret: keys.cookieKey,
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+      secure: false,
+      maxAge: 30 * 24 * 60 * 60 * 1000,
+    },
+  })
+);
 
 app.use(flash());
 app.use(passport.initialize());
