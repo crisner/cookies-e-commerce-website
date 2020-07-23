@@ -84,6 +84,10 @@ module.exports = (app) => {
   })
 
   app.get('/api/user', isAuth, (req, res) => {
+    if(!req.user) {
+      return res.status(401).send({ error: 'Please sign in to proceed.' });
+    }
+    // res.redirect('/profile')
     res.send(req.user);
   })
 
