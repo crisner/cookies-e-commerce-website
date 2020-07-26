@@ -38,7 +38,7 @@ passport.use(new GoogleStrategy({
 async (req, token, refreshToken, profile, done) => {
   if (!req.user) {
     try {
-      const user = await User.findOne({ googleId: profile.id });
+      const user = await User.findOne({ 'google.id': profile.id });
       if(user) {
         // if there no token (user was linked at one point and then removed)
         if (!user.google.token) {
@@ -46,17 +46,14 @@ async (req, token, refreshToken, profile, done) => {
           user.google.name  = profile.displayName;
           user.google.email = profile.emails[0].value;
 
-          await user.save(function(err) {
-              if (err)
-                  throw err;
-              return done(null, user);
-          });
+          await user.save();
+          return done(null, user);
         }
         return done(null, user);
       } else {
         const newUser = await new User({ 
           google: {
-            googleId: profile.id,
+            id: profile.id,
             token: token,
             name : profile.displayName,
             email: profile.emails[0].value
@@ -94,14 +91,14 @@ passport.use('local-login', new LocalStrategy(
     session: false
   },
   function(email, password, done) {
-    User.findOne({ 'local.email': email }, async function(err, user) {
+    User.findOne({ email }, async function(err, user) {
       if (err) { 
         return done(err); 
       }
       if (!user) {
         return done(null, false, { message: 'Incorrect email or password' });
       }
-      const isValidPassword = await user.isValidPassword(password, user.local.password);
+      const isValidPassword = await user.isValidPassword(password, user.password);
       if (!isValidPassword) {
         return done(null, false, { message: 'Incorrect email or password' });
       }
@@ -120,41 +117,54 @@ passport.use('local-signup', new LocalStrategy(
   },
   function(req, email, password, done) {
     // process.nextTick(function() {
-      User.findOne({ 'local.email': email }, async function(err, user) {
+      User.findOne({ email }, async function(err, user) {
         if (err) {
           return done(err);
         }
         // Check if email exists
         if (user) {
-          return done(null, false, { message: 'Email already exists.' });
+          return done(null, false, { message: 'Incorrect email or password' });
           // req.flash('signupMessage', 'An account is already associated with this email.')
         }
-
-        //  Connect a new local account if logged in
-        if(req.user && !req.user.local.email) {
-          try {
-            const user = req.user;
-            user.local.email = email;
-            user.local.password = password;
-            user.save();
-            return done(null, user);
-          } catch(err) {
-            throw err;
-          }
-        } else {
-          // Save new user
-          const newUser = new User();
-          newUser.local.email = email;
-          newUser.local.password = password;
-          try {
-            await newUser.save();
-            done(null, newUser);
-          } catch(err) {
-            done(err);
-          }
+        // Save new user
+        const newUser = new User(req.body);
+        try {
+          await newUser.save();
+          done(null, newUser);
+        } catch(err) {
+          done(err);
         }
       });
     // })
+  }
+));
+
+passport.use('local-authz', new LocalStrategy({
+    usernameField: 'email',
+    passwordField: 'password'
+  },
+  function(email, password, done) {
+    User.findOne({ email }, async function(err, existingAccount) {
+      if (err) { 
+        return done(err);
+      }
+      
+      if (existingAccount) {
+        console.log('existing user:', existingAccount)
+        return done(null, false, { message: 'This email is already in use' });
+      }
+      
+      // Send local authentication details to be saved in the user
+      const newAccount = {};
+      try {
+        newAccount.email = email;
+        newAccount.password = password;
+        done(null, newAccount);
+      } catch(err) {
+        done(err);
+      }
+      // return done(null, newAccount);
+    });
   }
 ));
 

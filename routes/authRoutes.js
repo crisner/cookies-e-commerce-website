@@ -1,5 +1,7 @@
 const passport = require('passport');
 const isAuth = require('../services/authMiddleware').isAuth;
+// User model
+const User = require('../models/User');
 
 module.exports = (app) => {
   app.get('/auth/google',
@@ -100,11 +102,26 @@ module.exports = (app) => {
 
   // Routes to connect strategies to user account if logged in
   // Link local authentication
-  app.post('/connect/local', passport.authenticate('local-signup', {
-    successRedirect : '/profile',
-    failureRedirect : '/account',
-    failureFlash : true
-  }));
+  app.post('/connect/local', isAuth,
+  passport.authorize('local-authz', 
+  { successRedirect: '/profile',failureRedirect: '/' }),
+  async function(req, res) {
+    const user = req.user;
+    const local = req.newAccount;
+    // Associate the local account details with the logged-in user.
+    try {
+      const updateUser = await User.findById({ _id: user.id });
+      updateUser.email = local.email;
+      updateUser.password = local.password;
+      await updateUser.save();
+      if(!updateUser) {
+        return res.status(404).send('User not found');
+      }
+      res.status(200);
+    } catch(err) {
+      throw err;
+    }
+  });
 
   // Link Google authentication
   app.get('/connect/google', passport.authorize('google', { scope : ['profile', 'email'] }));
