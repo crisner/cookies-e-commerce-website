@@ -1,6 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const cookieSession = require('cookie-session');
+// const cookieSession = require('cookie-session');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const passport = require('passport');
@@ -12,9 +12,10 @@ const products = require('./routes/api/products');
 const users = require('./routes/api/users');
 
 const app = express();
-app.use(cookieParser())
-app.use(express.json());
+
+app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 // DB config
 const db = keys.mongoURI;
