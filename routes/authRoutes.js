@@ -124,10 +124,10 @@ module.exports = (app) => {
   });
 
   // Link Google authentication
-  app.get('/connect/google', passport.authorize('google', { scope : ['profile', 'email'] }));
+  app.get('/connect/google', isAuth, passport.authorize('google-authz', { scope : ['profile', 'email'] }));
 
-  app.get('/connect/google/callback',
-    passport.authorize('google', {
+  app.get('/connect/google/callback', isAuth, 
+    passport.authorize('google-authz', {
       successRedirect : '/profile',
       failureRedirect : '/'
   }));
