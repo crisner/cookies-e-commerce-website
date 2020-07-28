@@ -127,16 +127,16 @@ module.exports = (app) => {
   app.get('/connect/google', isAuth, passport.authorize('google', { scope : ['profile', 'email'] }));
 
   // Unlink accounts that use third party services
-  app.get('/unlink/google', async function(req, res) {
+  app.get('/unlink/google', isAuth, async function(req, res) {
     try {
       const user = req.user;
-      user.google.googleId = undefined;
+      user.google.id = undefined;
       user.google.token = undefined;
       await user.save();
       res.redirect('/profile');
     } catch(err) {
       throw err;
-    }	
-	});
+    }
+  });
 
 };
