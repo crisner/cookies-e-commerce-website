@@ -56,7 +56,13 @@ passport.use(new GoogleStrategy({
             return done(null, user);
           }
           // Create new user
-          const newUser = await new User({ googleId: profile.id }).save();
+          const newUser = await new User({ 
+            'google.id': profile.id,
+            'google.token': token,
+            'google.name' : profile.displayName,
+            'google.email': profile.emails[0].value
+          }).save();
+          console.log(newUser)
           return done(null, newUser);
         } else {
           // Prevent linking if user exists
