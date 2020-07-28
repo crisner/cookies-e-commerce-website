@@ -87,6 +87,7 @@ module.exports = (app) => {
     try {
       req.user.tokens = req.user.tokens.filter(token => token.token !== req.token);
       await req.user.save();
+      res.status(200);
     } catch(err) {
       res.status(500).send();
     }
@@ -96,8 +97,7 @@ module.exports = (app) => {
     if(!req.user) {
       return res.status(401).send({ error: 'Please sign in to proceed.' });
     }
-    // res.redirect('/profile')
-    res.send(req.user);
+    res.status(200).redirect('/profile');
   })
 
   // Routes to connect strategies to user account if logged in
