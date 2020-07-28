@@ -35,9 +35,9 @@ const isAuth = (req, res, next) => {
         });
 
       })(req, res, next);
-      
-    } else {
-      next();
+    } 
+    else {
+      res.status(401).send({ error: 'Please sign in to proceed.' });
     }
   } catch(err) {
     console.log(err)
