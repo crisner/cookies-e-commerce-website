@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const isAuth = require('../../services/authMiddleware').isAuth;
 
 // User model
 const User = require('../../models/User');
@@ -18,68 +19,32 @@ router.get('/', async (req, res) => {
 })
 
 // Get user
-router.get('/:id', async (req, res) => {
-  const id = req.params.id;
-  try {
-    const user = await User.findById(id);
-    if(!user) {
-      return res.status(404).send('Cannot find user');
-    }
-    res.send(user)
-  } catch(err) {
-    res.status(500).send(err)
-  }
+router.get('/profile', isAuth, (req, res) => {
+    res.send(req.user);
 })
 
-// Login user
-// router.get('/login', async (req, res) => {
-//   const user = await findByCredentials(req.body.email, req.body.password)
-// })
-
-// Post a new user
-// router.post('/', async (req, res) => {
-//   console.log(req.isAuthenticated())
-  // const newUser = new User(req.body);
-  // try {
-  //   await newUser.save();
-  //   res.status(201).send(newUser)
-  // } catch(err) {
-  //   res.status(400).send(err)
-  // }
-// })
-
 // Update user
-router.patch('/:id', async (req, res) => {
-  const id = req.params.id;
+router.patch('/profile', isAuth, async (req, res) => {
   const updates = Object.keys(req.body);
-  const deniedUpdates = ['googleId', 'userName'];
-  const isInvalidOperation = updates.filter(update => deniedUpdates.includes(update) === true);
-  console.log(isInvalidOperation)
-  if(isInvalidOperation.length) {
+  const allowedUpdates = ['name', 'email', 'password', 'firstName', 'lastName'];
+  const isValidOperation = updates.every(update => allowedUpdates.includes(update));
+  if(!isValidOperation) {
     return res.status(400).send({error: 'Update invalid'})
   }
 
   try {
-    const user = await User.findById(id);
-    updates.forEach(update => user[update] = req.body[update]);
-    await user.save();
-
-    if(!user) {
-      return res.status(404).send('User does not exist');
-    }
-    res.send(user);
+    updates.forEach(update => req.user[update] = req.body[update]);
+    await req.user.save();
+    res.send(req.user);
   } catch(err) {
     res.status(400).send(err)
   }
 })
 
 // Delete a user
-router.delete('/:id', async (req, res) => {
+router.delete('/profile', isAuth, async (req, res) => {
   try {
-    const user = await User.findByIdAndDelete(req.params.id, { useFindAndModify: false });
-    if(!user) {
-      return res.status(404).send('User not found');
-    }
+    await req.user.remove();
     res.status(200).send('Deleted user')
   } catch(err) {
     err => res.status(500).send(err)
