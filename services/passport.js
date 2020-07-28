@@ -29,63 +29,49 @@ const GOOGLE_CLIENT_ID = keys.googleClientId;
 const GOOGLE_CLIENT_SECRET = keys.googleClientSecret;
 
 passport.use(new GoogleStrategy({
-  clientID: GOOGLE_CLIENT_ID,
-  clientSecret: GOOGLE_CLIENT_SECRET,
-  callbackURL: "/auth/google/callback",
-  proxy: true
-},
-async (token, refreshToken, profile, done) => {
-  try {
-    const user = await User.findOne({ googleId: profile.id });
-
-    if (user && !user.google.token) {
-      user.google.token = token;
-      user.google.name  = profile.displayName;
-      user.google.email = profile.emails[0].value;
-
-      await user.save();
-      return done(null, user);
-    }
-
-    if(user) {
-      return done(null, false, { message: 'This account is already in use' });
-    }
-
-    // Create new user
-    const newUser = await new User({ googleId: profile.id }).save();
-    done(null, newUser);
-  } catch(err) {
-    done(err);
-  }
-}
-)); 
-
-passport.use('google-authz', new GoogleStrategy(
-  {
     clientID: GOOGLE_CLIENT_ID,
     clientSecret: GOOGLE_CLIENT_SECRET,
-    callbackURL: "/connect/google/callback",
-    passReqToCallback : true,
+    callbackURL: '/auth/google/callback',
+    passReqToCallback : true
   },
   function(req, token, refreshToken, profile, done) {
-    User.findOne({ googleId: profile.id }, async function(err, existingAccount) {
-      if (err) { 
-        return done(err);
-      }
-
-      if (existingAccount) {
-        return done(null, false, { message: 'This account is already in use' });
-      }
-
-      // Save google authentication details to the logged-in user
-      const updateUser = req.user;
+    User.findOne({ 'google.id': profile.id }, async function(err, user) {
       try {
-        updateUser.google.id = profile.id;
-        updateUser.google.token = token;
-        updateUser.google.name  = profile.displayName;
-        updateUser.google.email = profile.emails[0].value;
-        await updateUser.save();
-        return done(null, updateUser);
+        if (err) { 
+          return done(err);
+        }
+
+        if(!req.user) {
+          // If user exists with removed authorization
+          if (user && !user.google.token) {
+            user.google.token = token;
+            user.google.name  = profile.displayName;
+            user.google.email = profile.emails[0].value;
+      
+            await user.save();
+            return done(null, user);
+          }
+          // Sign in
+          if (user) {
+            return done(null, user);
+          }
+          // Create new user
+          const newUser = await new User({ googleId: profile.id }).save();
+          return done(null, newUser);
+        } else {
+          // Prevent linking if user exists
+          if (user) {
+            return done(null, false, { message: 'This account already exists.' });
+          }
+          // Link Google account to the logged-in user
+          const updateUser = req.user;
+          updateUser.google.id = profile.id;
+          updateUser.google.token = token;
+          updateUser.google.name  = profile.displayName;
+          updateUser.google.email = profile.emails[0].value;
+          await updateUser.save();
+          return done(null, updateUser);
+        }
       } catch(err) {
         return done(err);
       }

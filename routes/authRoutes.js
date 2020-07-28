@@ -124,13 +124,7 @@ module.exports = (app) => {
   });
 
   // Link Google authentication
-  app.get('/connect/google', isAuth, passport.authorize('google-authz', { scope : ['profile', 'email'] }));
-
-  app.get('/connect/google/callback', isAuth, 
-    passport.authorize('google-authz', {
-      successRedirect : '/profile',
-      failureRedirect : '/'
-  }));
+  app.get('/connect/google', isAuth, passport.authorize('google', { scope : ['profile', 'email'] }));
 
   // Unlink accounts that use third party services
   app.get('/unlink/google', async function(req, res) {
