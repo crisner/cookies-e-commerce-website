@@ -103,25 +103,11 @@ module.exports = (app) => {
   // Routes to connect strategies to user account if logged in
   // Link local authentication
   app.post('/connect/local', isAuth,
-  passport.authorize('local-authz', 
-  { successRedirect: '/profile',failureRedirect: '/' }),
-  async function(req, res) {
-    const user = req.user;
-    const local = req.newAccount;
-    // Associate the local account details with the logged-in user.
-    try {
-      const updateUser = await User.findById({ _id: user.id });
-      updateUser.email = local.email;
-      updateUser.password = local.password;
-      await updateUser.save();
-      if(!updateUser) {
-        return res.status(404).send('User not found');
-      }
-      res.status(200);
-    } catch(err) {
-      throw err;
+    passport.authorize('local-signup', { failureRedirect: '/' }),
+    function(req, res) {
+      res.redirect('/profile');
     }
-  });
+  );
 
   // Link Google authentication
   app.get('/connect/google', isAuth, passport.authorize('google', { scope : ['profile', 'email'] }));

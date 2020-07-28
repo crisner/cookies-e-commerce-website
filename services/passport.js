@@ -114,53 +114,34 @@ passport.use('local-signup', new LocalStrategy(
   function(req, email, password, done) {
     // process.nextTick(function() {
       User.findOne({ email }, async function(err, user) {
-        if (err) {
-          return done(err);
-        }
-        // Check if email exists
-        if (user) {
-          return done(null, false, { message: 'Incorrect email or password' });
-          // req.flash('signupMessage', 'An account is already associated with this email.')
-        }
-        // Save new user
-        const newUser = new User(req.body);
         try {
-          await newUser.save();
-          done(null, newUser);
+          if (err) {
+            return done(err);
+          }
+
+          if (user) {
+            return done(null, false, { message: 'Account already exists.' });
+            // req.flash('signupMessage', 'An account is already associated with this email.')
+          }
+          
+          if(!req.user) {
+            // Save new user
+            const newUser = new User(req.body);
+            await newUser.save();
+            return done(null, newUser);
+          } else {
+            // Link email/password authentication info to the logged-in user
+            const updateUser = req.user;
+            updateUser.email = email;
+            updateUser.password = password;
+            await updateUser.save();
+            return done(null, updateUser);
+          }
         } catch(err) {
-          done(err);
+          return done(err);
         }
       });
     // })
-  }
-));
-
-passport.use('local-authz', new LocalStrategy({
-    usernameField: 'email',
-    passwordField: 'password'
-  },
-  function(email, password, done) {
-    User.findOne({ email }, async function(err, existingAccount) {
-      if (err) { 
-        return done(err);
-      }
-      
-      if (existingAccount) {
-        console.log('existing user:', existingAccount)
-        return done(null, false, { message: 'This email is already in use' });
-      }
-      
-      // Send local authentication details to be saved in the user
-      const newAccount = {};
-      try {
-        newAccount.email = email;
-        newAccount.password = password;
-        done(null, newAccount);
-      } catch(err) {
-        done(err);
-      }
-      // return done(null, newAccount);
-    });
   }
 ));
 
