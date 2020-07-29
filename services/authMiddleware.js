@@ -54,7 +54,23 @@ const isAdmin = (req, res, next) => {
   }
 }
 
+const authType = (req, res, next) => {
+  try {
+    if(req.user && req.user.email && !req.user.google.id) {
+      req.authType = 'connect';
+      next();
+    } else {
+      req.authType = 'auth';
+      next();
+    }
+  } catch(err) {
+    throw err;
+  }
+  
+}
+
 module.exports = {
   isAuth,
-  isAdmin
+  isAdmin,
+  authType
 }
