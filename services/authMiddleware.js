@@ -51,7 +51,6 @@ const authType = (req, res, next) => {
       req.authType = 'connect';
       next();
     } else {
-      req.authType = 'auth';
       next();
     }
   } catch(err) {

@@ -9,7 +9,6 @@ module.exports = (app) => {
   app.get('/auth/google/callback', authType, function(req, res, next) {
     passport.authenticate('google', 
     function(err, user, info) {
-      // console.log(info)
       if (err) {
         return next(err); 
       }
