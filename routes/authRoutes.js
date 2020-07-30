@@ -1,44 +1,56 @@
 const passport = require('passport');
 const isAuth = require('../services/authMiddleware').isAuth;
 const authType = require('../services/authMiddleware').authType;
-// User model
-const User = require('../models/User');
 
 module.exports = (app) => {
   app.get('/auth/google',
   passport.authenticate('google', { scope: ['profile', 'email'] }));
 
-  app.get('/auth/google/callback', authType, passport.authenticate('google', { failureRedirect: '/login' }), (req, res) => {
-    if(req.authType === 'connect') {
-      // Successful authentication, redirect home.
-      res.redirect('/');
-    } else {
-      const user = req.user;
-      const payload = {
-        id: user.id
-      };
-      /** assigns payload to req.user */
-      req.login(payload, {session: false}, async (error) => {
-        if (error) {
-          res.status(400).send({ error });
+  app.get('/auth/google/callback', authType, function(req, res, next) {
+    passport.authenticate('google', 
+    function(err, user, info) {
+      // console.log(info)
+      if (err) {
+        return next(err); 
+      }
+      if (!user) {
+        console.log('no user')
+        if(info.message) {
+          return res.redirect('/profile');
+        } else {
+          return res.redirect('/login');
         }
-
-        try {
-          /** generate a signed json web token and return it in the response */
-          const token = await user.generateAuthToken(payload);
-        
-          /** assign our jwt to the cookie */
-          res.cookie('jwt', token, 
-          // { httpOnly: true, secure: true }
-          );
-          res.status(200);
-          // Successful authentication, redirect home.
-          res.redirect('/');
-        } catch(err) {
-          res.status(400).json({ error: err })
-        }
-      });
-    }
+      }
+      if(req.authType === 'connect') {
+        // Successful authentication, redirect to profile.
+        res.redirect('/profile');
+      } else {
+        const payload = {
+          id: user.id
+        };
+        /** assigns payload to req.user */
+        req.login(payload, {session: false}, async (error) => {
+          if (error) {
+            res.status(400).send({ error });
+          }
+  
+          try {
+            /** generate a signed json web token and return it in the response */
+            const token = await user.generateAuthToken(payload);
+          
+            /** assign our jwt to the cookie */
+            res.cookie('jwt', token, 
+            // { httpOnly: true, secure: true }
+            );
+            res.status(200);
+            // Successful authentication, redirect home.
+            res.redirect('/');
+          } catch(err) {
+            res.status(400).json({ error: err })
+          }
+        });
+      }
+    })(req, res, next)
   });
 
   app.post('/auth/signup',
