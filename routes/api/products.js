@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const {isAuth, isAdmin} = require('../../services/authMiddleware');
 
 // Product model
 const Product = require('../../models/Product');
@@ -11,7 +12,7 @@ router.get('/', (req, res) => {
 })
 
 // POST a product to api/products
-router.post('/', (req, res) => {
+router.post('/', isAuth, isAdmin, (req, res) => {
   const newProduct = new Product({
     name: req.body.name,
     image: req.body.image,
@@ -24,7 +25,7 @@ router.post('/', (req, res) => {
 })
 
 // DELETE a product
-router.delete('/:id', (req, res) => {
+router.delete('/:id', isAuth, isAdmin, (req, res) => {
   Product.findByIdAndDelete(req.params.id)
     .then(product => {
       if(!product) {
