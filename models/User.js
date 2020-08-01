@@ -66,6 +66,11 @@ UserSchema.methods.toJSON = function() {
   delete userObject.password;
   delete userObject.tokens;
 
+  if(user.google.id) {
+    delete userObject.google.token;
+    delete userObject.google.id;
+  }
+
   return userObject;
 }
 
