@@ -38,10 +38,10 @@ const isAuth = (req, res, next) => {
 };
 
 const isAdmin = (req, res, next) => {
-  if(req.authenticated() && req.user.admin) {
+  if(req.user.role === 'admin') {
     next();
   } else {
-    res.send(401).json({ message: 'Access denied. You are not an authorised user.' });
+    res.status(401).send({ error: 'Unauthorized' });
   }
 }
 
