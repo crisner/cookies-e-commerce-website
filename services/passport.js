@@ -133,6 +133,13 @@ passport.use('local-signup', new LocalStrategy(
           if(!req.user) {
             // Save new user
             const newUser = new User(req.body);
+            /*
+            * Prevent user from signing up with admin role
+            * Only existing admins can grant admin access to user roles.
+            */
+            if(newUser.role === 'admin') {
+              return done(null, false, { message: 'Unauthorized!' });
+            }
             await newUser.save();
             return done(null, newUser);
           } else {
