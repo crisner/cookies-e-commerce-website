@@ -43,14 +43,14 @@ router.get('/:status', isAuth, isAdmin, async(req, res) => {
   }
 })
 
-// Get all confirmed orders
-router.get('/confirmed', isAuth, isAdmin, async(req, res) => {
+// Get order by id
+router.get('/order/:id', isAuth, isAdmin, async(req, res) => {
   try {
-    const orders = await Order.find({status: 'confirmed'});
-    if(!orders) {
-      res.status(404).send('No confirmed orders');
+    const order = await Order.findById(req.params.id);
+    if(!order) {
+      res.status(404).send();
     }
-    res.send(orders);
+    res.send(order);
   } catch(err) {
     res.status(500).send(err);
   }
