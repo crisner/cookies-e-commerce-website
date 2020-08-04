@@ -56,14 +56,12 @@ router.get('/order/:id', isAuth, isAdmin, async(req, res) => {
   }
 })
 
-// Get all dispatched orders
-router.get('/dispatched', isAuth, isAdmin, async(req, res) => {
+// Post new order
+router.post('/', isAuth, async(req, res) => {
   try {
-    const orders = await Order.find({status: 'dispatched'});
-    if(!orders) {
-      res.status(404).send('No dispatched orders');
-    }
-    res.send(orders);
+    const newOrder = new Order(req.body);
+    await newOrder.save();
+    res.send(newOrder);
   } catch(err) {
     res.status(500).send(err);
   }
