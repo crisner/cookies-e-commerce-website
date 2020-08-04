@@ -37,9 +37,9 @@ const OrderSchema = new Schema({
 OrderSchema.pre('save', async function (next) {
   const order = this;
   if(!order.createdOn) {
-    order.createdOn = new Date().getTime();
+    order.createdOn = new Date();
   } else if(order.isModified('items')) {
-    order.updatedOn = new Date().getTime();
+    order.updatedOn = new Date();
   }
   next();
 })
