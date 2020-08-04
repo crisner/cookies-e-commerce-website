@@ -18,12 +18,24 @@ router.get('/', isAuth, isAdmin, async(req, res) => {
   }
 })
 
-// Get all placed orders
-router.get('/placed', isAuth, isAdmin, async(req, res) => {
+// Get orders by status
+router.get('/:status', isAuth, isAdmin, async(req, res) => {
   try {
-    const orders = await Order.find({status: 'placed'});
+    const status = req.params.status;
+    const noOfMonths = req.query.months;
+    let orders;
+    if(noOfMonths) { // filter by number of months
+      const to = new Date();
+      const currentMonth = new Date().getMonth();
+      const setMonth = new Date().setMonth(currentMonth - noOfMonths);
+      const from = new Date(setMonth);
+      orders = await Order.find({status, createdOn: { $gte: from, $lte: to }});
+    } else {
+      orders = await Order.find({status});
+    }
+
     if(!orders) {
-      res.status(404).send('No placed orders');
+      res.status(404).send('Not found');
     }
     res.send(orders);
   } catch(err) {
