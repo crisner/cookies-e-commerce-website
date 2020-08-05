@@ -30,18 +30,11 @@ const OrderSchema = new Schema({
     type: Date,
     required: true
   },
-  updatedOn: Date
-})
-
-// Add date
-OrderSchema.pre('save', async function (next) {
-  const order = this;
-  if(!order.createdOn) {
-    order.createdOn = new Date();
-  } else if(order.isModified('items')) {
-    order.updatedOn = new Date();
-  }
-  next();
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: 'users'
+  } 
 })
 
 module.exports = Order = mongoose.model('orders', OrderSchema);

@@ -59,7 +59,11 @@ router.get('/order/:id', isAuth, isAdmin, async(req, res) => {
 // Post new order
 router.post('/', isAuth, async(req, res) => {
   try {
-    const newOrder = new Order(req.body);
+    const newOrder = new Order({
+      ...req.body,
+      userId: req.user._id,
+      createdOn: new Date()
+    });
     await newOrder.save();
     res.send(newOrder);
   } catch(err) {
