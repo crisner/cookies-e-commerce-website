@@ -2,10 +2,6 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const OrderSchema = new Schema({
-  number: {
-    type: String,
-    required: true
-  },
   items: {
     type: Array,
     required: true
@@ -19,11 +15,7 @@ const OrderSchema = new Schema({
   },
   status: {
     type: String,
-    enum: ['placed', 'confirmed', 'dispatched', 'delivered'],
-    required: true
-  },
-  paid: {
-    type: Boolean,
+    enum: ['placed', 'confirmed', 'dispatched', 'delivered', 'cancelled'],
     required: true
   },
   createdOn: {
