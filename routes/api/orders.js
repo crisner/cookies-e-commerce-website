@@ -67,26 +67,22 @@ router.post('/', isAuth, async(req, res) => {
   }
 })
 
-// Get all delivered orders
-router.get('/delivered', isAuth, isAdmin, async(req, res) => {
+// Update order
+router.patch('/:id', isAuth, isAdmin, async(req, res) => {
+  const allowedUpdates = ['status'];
+  const updates = Object.keys(req.body);
+  const isValidOperation = updates.every(update => allowedUpdates.includes(update));
+  if(!isValidOperation) {
+    return res.status(400).send({error: 'Update invalid'})
+  }
   try {
-    const noOfMonths = req.query.months;
-    let orders;
-    if(noOfMonths) {
-      const toDate = new Date();
-      const currentMonth = new Date().getMonth();
-      const fromDate = toDate.setMonth(currentMonth - noOfMonths);
-      const to = toDate.getTime();
-      const from = fromDate.getTime();
-      orders = await Order.find({status: 'delivered', createdOn: { $gte: from, $lte: to }});
-    } else {
-      orders = await Order.find({status: 'delivered'});
+    const order = await Order.findById(req.params.id);
+    if(!order) {
+      res.status(404).send();
     }
-    
-    if(!orders) {
-      res.status(404).send('No delivered orders');
-    }
-    res.send(orders);
+    updates.forEach(update => order[update] = req.body[update]);
+    await order.save();
+    res.send(order);
   } catch(err) {
     res.status(500).send(err);
   }
