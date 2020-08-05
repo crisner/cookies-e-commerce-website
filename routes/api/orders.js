@@ -6,9 +6,15 @@ const {isAuth, isAdmin} = require('../../services/authMiddleware');
 const Order = require('../../models/Order');
 
 // Get all orders
-router.get('/', isAuth, isAdmin, async(req, res) => {
+router.get('/', isAuth, async(req, res) => {
   try {
-    const orders = await Order.find({});
+    let orders;
+    if(req.user.role === 'admin') {
+      orders = await Order.find({});
+    } else {
+      orders = await Order.find({userId: req.user.id});
+    }
+    
     if(!orders) {
       res.status(404).send('No orders');
     }
@@ -44,9 +50,18 @@ router.get('/:status', isAuth, isAdmin, async(req, res) => {
 })
 
 // Get order by id
-router.get('/order/:id', isAuth, isAdmin, async(req, res) => {
+router.get('/order/:id', isAuth, async(req, res) => {
   try {
-    const order = await Order.findById(req.params.id);
+    let order;
+    if(req.user.role === 'admin') {
+      order = await Order.findById(req.params.id);
+    } else {
+      order = await Order.findOne({
+        _id: req.params.id, 
+        userId: req.user.id
+      });
+    }
+   
     if(!order) {
       res.status(404).send();
     }
