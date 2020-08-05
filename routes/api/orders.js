@@ -12,7 +12,8 @@ router.get('/', isAuth, async(req, res) => {
     if(req.user.role === 'admin') {
       orders = await Order.find({});
     } else {
-      orders = await Order.find({userId: req.user.id});
+      await req.user.populate('orders').execPopulate();
+      orders = req.user.orders;
     }
     
     if(!orders) {

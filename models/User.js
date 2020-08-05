@@ -58,6 +58,13 @@ const UserSchema = new Schema ({
   }
 })
 
+// Connect user to orders
+UserSchema.virtual('orders', {
+  ref: 'orders',
+  localField: '_id',
+  foreignField: 'userId'
+})
+
 // Hide sensitive data
 UserSchema.methods.toJSON = function() {
   const user = this;
