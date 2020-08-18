@@ -21,7 +21,7 @@ router.get('/', isAuth, async(req, res) => {
 // GET single product
 router.get('/:id', isAuth, async(req, res) => {
   try {
-    const product = await findById(req.params.id);
+    const product = await Product.findById(req.params.id);
     if(!product) {
       res.status(404);
       res.send('not found')
