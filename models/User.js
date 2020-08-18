@@ -65,6 +65,13 @@ UserSchema.virtual('orders', {
   foreignField: 'userId'
 })
 
+// Connect user to shipping details
+UserSchema.virtual('shipping', {
+  ref: 'shipping',
+  localField: '_id',
+  foreignField: 'userId'
+})
+
 // Hide sensitive data
 UserSchema.methods.toJSON = function() {
   const user = this;
