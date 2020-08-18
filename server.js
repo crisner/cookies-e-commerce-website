@@ -11,6 +11,7 @@ const keys = require('./config/keys');
 const products = require('./routes/api/products');
 const users = require('./routes/api/users');
 const orders = require('./routes/api/orders');
+const shipping = require('./routes/api/shipping');
 
 const app = express();
 
@@ -59,6 +60,7 @@ app.use(passport.session());
 app.use('/api/products', products)
 app.use('/api/users', users)
 app.use('/api/orders', orders)
+app.use('/api/shipping', shipping)
 require('./routes/authRoutes')(app);
 
 const port = process.env.PORT || 5000;

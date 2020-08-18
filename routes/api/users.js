@@ -23,6 +23,21 @@ router.get('/profile', isAuth, (req, res) => {
     res.send(req.user);
 })
 
+// Get user shipping
+router.get('/saved-addresses', isAuth, isAdmin, async (req, res) => {
+  try {
+    await req.user.populate('shipping').execPopulate();
+    const shippingDetails = req.user.shipping;
+    if(!shippingDetails) {
+      res.status(404).send('Shipping details not found');
+    }
+    res.status(200).send(shippingDetails);
+
+  } catch(err) {
+    res.status(500).send({error: err});
+  }
+})
+
 // Update user
 router.patch('/profile', isAuth, async (req, res) => {
   const updates = Object.keys(req.body);
