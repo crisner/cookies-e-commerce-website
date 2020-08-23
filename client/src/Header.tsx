@@ -1,10 +1,29 @@
 import React, { useState } from 'react';
+import { connect, ConnectedProps } from 'react-redux';
+import { AppState } from './store';
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faShoppingBag, faUser } from '@fortawesome/free-solid-svg-icons';
 import Dropdown from './Dropdown';
+import { logOut } from './store/auth/actions';
 
-const Header = (props): JSX.Element => {
+const mapStateToProps = (state: AppState) => {
+  return {
+    auth: state.auth
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    logOut: () => dispatch(logOut())
+  }
+}
+
+const connector = connect(mapStateToProps, mapDispatchToProps)
+
+type PropsFromRedux = ConnectedProps<typeof connector>
+
+const Header = (props: PropsFromRedux): JSX.Element => {
   const [dropdown, addDropdown] = useState(false);
   return (
     <header>
@@ -19,14 +38,14 @@ const Header = (props): JSX.Element => {
           <Link to="/cart"><FontAwesomeIcon icon={faShoppingBag} /></Link>
         </div>
       </div>
-      {dropdown ? (!props.auth.auth ? (
+      {dropdown ? (!props.auth.loggedIn ? (
       <Dropdown id={'user-signin'} data={{'Sign In': '/signin'}} />
       ) : (
-        <Dropdown id={'user-menu'} data={{
+        <Dropdown id={'user-menu'} logOut={props.logOut} data={{
           'Edit profile': '/',
           'My account': '/',
           Orders: '/',
-          Logout: '/api/logout'
+          Logout:''
           }} />
       )) : null}
       
@@ -40,4 +59,4 @@ const Header = (props): JSX.Element => {
   )
 }
 
-export default Header;
+export default connector(Header);
