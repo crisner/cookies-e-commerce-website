@@ -1,5 +1,9 @@
 import axios from 'axios';
-import { FETCH_USER } from './types';
+import {
+  AUTHENTICATED, 
+  UNAUTHENTICATED, 
+  AUTHENTICATION_ERROR, 
+  FETCH_USER } from './types';
 
 export const fetchUser = () => async dispatch => {
   try {
@@ -7,5 +11,31 @@ export const fetchUser = () => async dispatch => {
     dispatch({type: FETCH_USER, payload: res.data});
   } catch(err) {
     console.log('Error fetching user')
+  }
+}
+
+export const signIn = ({ email, password }, history) => async dispatch => {
+  try {
+    const res = await axios.post('/auth/login', { email, password });
+    history.push('/');
+    dispatch({ type: AUTHENTICATED });
+  } catch(error) {
+    dispatch({
+      type: AUTHENTICATION_ERROR,
+      payload: { message: 'Incorrect email or password' }
+    });
+  }
+}
+
+export const logOut = () => async dispatch => {
+  try {
+    console.log('logout')
+    const res = await axios.post('/auth/logout');
+    dispatch({ type: UNAUTHENTICATED });
+  } catch(error) {
+    dispatch({
+      type: AUTHENTICATION_ERROR,
+      payload: { message: 'Something went wrong' }
+    });
   }
 }
