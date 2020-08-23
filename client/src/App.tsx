@@ -28,7 +28,7 @@ const App = (): JSX.Element => {
 
   return (
     <Router>
-      <Header auth={authState} />
+      <Header />
       <Switch>
         <Route path="/editprofile">
           <UserProfileEdit />
