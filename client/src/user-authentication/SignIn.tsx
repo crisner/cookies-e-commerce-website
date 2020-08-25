@@ -57,7 +57,7 @@ const SignIn = ({signIn, error}:PropsFromRedux) => {
         </form>
         <div className="options">
           <p>Forgot your password?</p>
-          <p><Link to="/signup">New user? Sign Up</Link></p>
+          <p><Link to="/auth/signup">New user? Sign Up</Link></p>
         </div>
         <div className="alternate-sign-in">
           <p>or sign in with</p>

@@ -39,7 +39,7 @@ const Header = (props: PropsFromRedux): JSX.Element => {
         </div>
       </div>
       {dropdown ? (!props.auth.loggedIn ? (
-      <Dropdown id={'user-signin'} data={{'Sign In': '/signin'}} />
+      <Dropdown id={'user-signin'} data={{'Sign In': '/auth/login'}} />
       ) : (
         <Dropdown id={'user-menu'} logOut={props.logOut} data={{
           'Edit profile': '/',

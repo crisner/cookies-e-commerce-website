@@ -36,10 +36,10 @@ const App = (): JSX.Element => {
         <Route path="/profile">
           <UserProfile />
         </Route>
-        <Route path="/signup">
+        <Route path="/auth/signup">
           <SignUp />
         </Route>
-        <Route path="/signin">
+        <Route path="/auth/login">
           <SignIn />
         </Route>
         <Route path="/cart">
