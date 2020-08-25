@@ -88,7 +88,9 @@ module.exports = (app) => {
             const token = await user.generateAuthToken(payload);
           
             /** assign our jwt to the cookie */
-            res.cookie('jwt', token, { httpOnly: true, secure: true });
+            res.cookie('jwt', token, 
+            // { httpOnly: true, secure: true }
+            );
             res.status(200).json({ success: true })
             // res.redirect('/');
           } catch(err) {
@@ -103,16 +105,6 @@ module.exports = (app) => {
     try {
       req.user.tokens = [];
       await req.user.save();
-      res.status(200);
-      res.redirect('/');
-    } catch(err) {
-      res.status(500).send();
-    }
-  })
-
-  app.get('/auth/logout', isAuth, async (req, res) => {
-    try {
-      req.logout(); 
       res.status(200);
       res.redirect('/');
     } catch(err) {
