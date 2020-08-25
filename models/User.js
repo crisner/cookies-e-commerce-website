@@ -8,10 +8,6 @@ const keys = require('../config/keys');
 const UserSchema = new Schema ({
   firstName: String,
   lastName: String,
-  userName: {
-    type: String,
-    default: 'User'
-  },
   email: {
     type: String,
     // required: true,
