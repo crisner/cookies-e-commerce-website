@@ -16,7 +16,8 @@ import SignIn from './user-authentication/SignIn';
 import SignUp from './user-authentication/SignUp';
 import UserProfile from './user/Profile';
 import UserProfileEdit from './user/EditProfile';
-import Cart from './cart/Cart'
+import Cart from './cart/Cart';
+import './stylesheet/main.css';
 
 const App = (): JSX.Element => {
   const dispatch = useDispatch();

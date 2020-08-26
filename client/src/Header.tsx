@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faShoppingBag, faUser } from '@fortawesome/free-solid-svg-icons';
 import Dropdown from './Dropdown';
 import { logOut } from './store/auth/actions';
+import logo from './images/logo-cookiefill.svg'
 
 const mapStateToProps = (state: AppState) => {
   return {
@@ -30,7 +31,7 @@ const Header = (props: PropsFromRedux): JSX.Element => {
       {console.log(props)}
       <div className="top">
         <div className="logo">
-          <img src="src/images/logo-cookiefill.svg" width="140px" alt="logo" />
+          <img src={logo} width="140px" alt="logo" />
         </div>
         <div className="links">
           <FontAwesomeIcon icon={faSearch} />
