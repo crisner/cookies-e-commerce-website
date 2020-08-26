@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "outDir": "public/dist",
     "baseUrl": "./",
     "module": "CommonJS",
     "jsx": "react",
@@ -9,5 +10,9 @@
     "esModuleInterop": true,
     "resolveJsonModule": true
   },
-  "exclude": ["src/setupProxy.js"]
+  "exclude": [
+    "node_modules",
+    "dist",
+    "webpack"
+  ]
 }
