@@ -52,13 +52,15 @@ module.exports = (app) => {
     })(req, res, next)
   });
 
-  app.post('/auth/signup',
+  app.post('/auth/signup', (req, res) => {
     passport.authenticate('local-signup', 
-      { successRedirect: '/auth/login',
-        failureRedirect: '/auth/signup',
-        failureFlash: true,
-      })
-  );
+    (error, user, info) => {
+      if (error || !user) {
+        res.status(400).json({ error: info });
+      }
+    }
+    )(req, res)
+  })
 
   app.post('/auth/login', (req, res) => {
     passport.authenticate('local-login', 
@@ -67,10 +69,10 @@ module.exports = (app) => {
         failureFlash: true,
         session: false 
       },
-      (error, user) => {
+      (error, user, info) => {
 
         if (error || !user) {
-          res.status(400).json({ error });
+          res.status(400).json({ error: info });
         }
 
         const payload = {
