@@ -20,16 +20,20 @@ export const registerUser = (userInfo, history) => async dispatch => {
   let res;
   try {
     res = await axios.post('/auth/signup', userInfo);
-    console.log(res)
     history.push('/auth/login');
-    dispatch({ type: REGISTER });
+    dispatch({ type: REGISTER, payload: userInfo });
   } catch(error) {
-    // console.log(error.response, error.request, error)
-    console.error(error.response.data, error.message);
-    dispatch({
-      type: REGISTER_ERROR,
-      payload: { message: 'Email already exists' }
-    });
+    if (error.response) {
+      dispatch({
+        type: REGISTER_ERROR,
+        payload: { message: error.response.data.error.message }
+      });
+    }  else {
+      dispatch({
+        type: REGISTER_ERROR,
+        payload: { message: 'Something went wrong' }
+      });
+    }
   }
 }
 
@@ -39,10 +43,17 @@ export const signIn = ({ email, password }, history) => async dispatch => {
     history.push('/');
     dispatch({ type: AUTHENTICATED });
   } catch(error) {
-    dispatch({
-      type: AUTHENTICATION_ERROR,
-      payload: { message: 'Incorrect email or password' }
-    });
+    if (error.response) {
+      dispatch({
+        type: AUTHENTICATION_ERROR,
+        payload: { message: error.response.data.error.message }
+      });
+    }  else {
+      dispatch({
+        type: AUTHENTICATION_ERROR,
+        payload: { message: 'Something went wrong' }
+      });
+    } 
   }
 }
 
