@@ -1,10 +1,7 @@
 export interface AuthState {
   loggedIn: boolean
   loading: boolean
-  user: {
-    email: string,
-    password: string
-  }
+  user: object
   error: object
 }
 

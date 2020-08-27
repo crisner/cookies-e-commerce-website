@@ -7,19 +7,16 @@ import {
 const initialState: AuthState = {
   loggedIn: false,
   loading: false,
-  user: {
-    email: '',
-    password: ''
-  },
+  user: {},
   error: {}
 };
 
 export default function(state=initialState, action) {
   switch(action.type) {
     case AUTHENTICATED:
-      return { ...state, loggedIn: true };
+      return { ...state, error: {}, loggedIn: true };
     case UNAUTHENTICATED:
-      return { ...state, loggedIn: false };
+      return { ...state, error: {}, loggedIn: false };
     case AUTHENTICATION_ERROR:
       return { ...state, error: action.payload };
     case REGISTER:
