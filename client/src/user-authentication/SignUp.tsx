@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 import { AppState } from '../store';
 import { registerUser } from '../store/auth/actions';
 import { getErrorMessage } from '../store/auth/selectors';
+import useForm from '../utils/useForm';
 
 const mapStateToProps = (state: AppState) => {
   const signUpError = getErrorMessage(state);
@@ -24,16 +25,18 @@ type PropsFromRedux = ConnectedProps<typeof connector>
 
 const SignUp = ({registerUser, error}: PropsFromRedux): JSX.Element => {
   const history = useHistory();
-  const [signupInfo, setInfo] = useState({
+  const signupInfo = {
     firstName: '',
     lastName: '',
     email: '',
     password: ''
-  });
-  const handleSubmit = e => {
-    e.preventDefault();
-    registerUser(signupInfo, history);
+  };
+  const submit = () => {
+    console.log('submitted', values)
+    // registerUser(signupInfo, history);
   }
+  const { values, handleChange, handleSubmit } = useForm(signupInfo, submit);
+  console.log('values signup:', values)
   return (
     <div className="signup">
       <h2>New User</h2>
@@ -48,27 +51,31 @@ const SignUp = ({registerUser, error}: PropsFromRedux): JSX.Element => {
         <form className="form" onSubmit={handleSubmit}>
           <label htmlFor="firstname">
             <h4>First Name</h4>
-            <input className="input-field" type="text" name="firstname" id="firstname"
-            onChange={e => setInfo({...signupInfo, firstName: e.target.value})}
-            value={signupInfo.firstName} />
+            <input className="input-field" type="text" name="firstName" id="firstName"
+            onChange={ handleChange }
+            // @ts-ignore
+            value={values.firstName && values.firstName} />
           </label>
           <label htmlFor="lastname">
             <h4>Last Name</h4>
-            <input className="input-field" type="text" name="lastname" id="lastname"
-            onChange={e => setInfo({...signupInfo, lastName: e.target.value})}
-            value={signupInfo.lastName} />
+            <input className="input-field" type="text" name="lastName" id="lastName"
+            onChange={ handleChange }
+            // @ts-ignore
+            value={values.lastName && values.lastName} />
           </label>
           <label htmlFor="email">
             <h4>Email</h4>
             <input className="input-field" type="email" name="email" id="email" required
-            onChange={e => setInfo({...signupInfo, email: e.target.value})}
-            value={signupInfo.email} />
+            onChange={ handleChange }
+            // @ts-ignore
+            value={values.email && values.email} />
           </label>
           <label htmlFor="password">
             <h4>Password</h4>
             <input className="input-field" type="password" name="password" id="password" required minLength={6}
-            onChange={e => setInfo({...signupInfo, password: e.target.value})}
-            value={signupInfo.password} />
+            onChange={ handleChange }
+            // @ts-ignore
+            value={values.password && values.password} />
           </label>
           <button className="cta" type="submit">Create Account</button>
           <p>{error && error.signUpError}</p>

@@ -4,6 +4,7 @@ import { AppState } from '../store';
 import { signIn } from '../store/auth/actions';
 import { getErrorMessage } from '../store/auth/selectors';
 import { Link, useHistory } from 'react-router-dom';
+import useForm from '../utils/useForm';
 
 const mapStateToProps = (state: AppState) => {
   const signInError = getErrorMessage(state);
@@ -25,14 +26,17 @@ type PropsFromRedux = ConnectedProps<typeof connector>
 
 const SignIn = ({signIn, error}:PropsFromRedux) => {
   const history = useHistory();
-  const [userCredentials, setValues] = useState({
+  const userCredentials = {
     email: '',
     password: ''
-   })
-   const handleSubmit = e => {
-    e.preventDefault();
-    signIn(userCredentials, history)
+  };
+  const submit = () => {
+    console.log('submitted', values);
+    signIn(values, history)
   }
+  const { values, handleChange, handleSubmit } = useForm(userCredentials, submit);
+  console.log('values:', values)
+
   return (
     <div className="sign-in">
       <h2>Sign In</h2>
@@ -42,15 +46,17 @@ const SignIn = ({signIn, error}:PropsFromRedux) => {
             <h4>Email</h4>
             <input className="input-field" 
             type="email" name="email" id="email"
-            onChange={ e => setValues( {...userCredentials, email: e.target.value})}
-            value={userCredentials.email} />
+            onChange={ handleChange }
+            // @ts-ignore
+            value={values.email && values.email} />
           </label>
           <label htmlFor="password">
             <h4>Password</h4>
             <input className="input-field" 
             type="password" name="password" id="password"
-            onChange={ e => setValues( {...userCredentials, password: e.target.value})}
-            value={userCredentials.password} />
+            onChange={ handleChange }
+            // @ts-ignore
+            value={values.password && values.password} />
           </label>
           <button className="cta" type="submit">Sign In</button>
           <p>{error && error.signInError}</p>
