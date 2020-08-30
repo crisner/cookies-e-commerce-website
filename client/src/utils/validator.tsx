@@ -1,7 +1,6 @@
 
 let errors = {};
-const validator = ([fieldType, fieldValue]: [string, any], required: boolean) => {;
-  console.log('validator', [fieldType, fieldValue])
+const validator = ([fieldType, fieldValue]: [string, any], required: boolean) => {
   switch(fieldType) {
     case 'email': {
       delete errors['email'];

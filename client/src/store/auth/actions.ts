@@ -17,9 +17,8 @@ export const fetchUser = () => async dispatch => {
 }
 
 export const registerUser = (userInfo, history) => async dispatch => {
-  let res;
   try {
-    res = await axios.post('/auth/signup', userInfo);
+    const res = await axios.post('/auth/signup', userInfo);
     history.push('/auth/login');
     dispatch({ type: REGISTER, payload: userInfo });
   } catch(error) {

@@ -53,10 +53,13 @@ module.exports = (app) => {
   });
 
   app.post('/auth/signup', (req, res) => {
-    passport.authenticate('local-signup', 
+    passport.authenticate('local-signup',
     (error, user, info) => {
       if (error || !user) {
         res.status(400).json({ error: info });
+      }
+      if(user) {
+        res.status(200).json('success');
       }
     }
     )(req, res)

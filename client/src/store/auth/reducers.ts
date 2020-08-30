@@ -20,7 +20,7 @@ export default function(state=initialState, action) {
     case AUTHENTICATION_ERROR:
       return { ...state, error: action.payload };
     case REGISTER:
-      return { ...state, user: action.payload};
+      return { ...state, error: {}, user: action.payload};
     case REGISTER_ERROR:
       return { ...state, error: action.payload };
     case CURRENT_USER:
