@@ -31,11 +31,17 @@ const SignUp = ({registerUser, error}: PropsFromRedux): JSX.Element => {
     email: '',
     password: ''
   };
+  const requiredInfo = {
+    firstName: true,
+    lastName: true,
+    email: true,
+    password: true
+  };
   const submit = () => {
     console.log('submitted', values)
     // registerUser(signupInfo, history);
   }
-  const { values, handleChange, handleSubmit } = useForm(signupInfo, submit);
+  const { values, handleChange, handleSubmit, errors } = useForm(signupInfo, requiredInfo, submit);
   console.log('values signup:', values)
   return (
     <div className="signup">
@@ -48,7 +54,7 @@ const SignUp = ({registerUser, error}: PropsFromRedux): JSX.Element => {
             window.location.pathname = "/auth/google";
           }}>Google</button>
         </div>
-        <form className="form" onSubmit={handleSubmit}>
+        <form className="form" noValidate onSubmit={handleSubmit}>
           <label htmlFor="firstname">
             <h4>First Name</h4>
             <input className="input-field" type="text" name="firstName" id="firstName"
@@ -56,6 +62,10 @@ const SignUp = ({registerUser, error}: PropsFromRedux): JSX.Element => {
             // @ts-ignore
             value={values.firstName && values.firstName} />
           </label>
+          {
+            // @ts-ignore
+            errors.firstName && <p>{errors.firstName}</p>
+          }
           <label htmlFor="lastname">
             <h4>Last Name</h4>
             <input className="input-field" type="text" name="lastName" id="lastName"
@@ -63,6 +73,10 @@ const SignUp = ({registerUser, error}: PropsFromRedux): JSX.Element => {
             // @ts-ignore
             value={values.lastName && values.lastName} />
           </label>
+          {
+            // @ts-ignore
+            errors.lastName && <p>{errors.lastName}</p>
+          }
           <label htmlFor="email">
             <h4>Email</h4>
             <input className="input-field" type="email" name="email" id="email" required
@@ -70,6 +84,10 @@ const SignUp = ({registerUser, error}: PropsFromRedux): JSX.Element => {
             // @ts-ignore
             value={values.email && values.email} />
           </label>
+          {
+            // @ts-ignore
+            errors.email && <p>{errors.email}</p>
+          }
           <label htmlFor="password">
             <h4>Password</h4>
             <input className="input-field" type="password" name="password" id="password" required minLength={6}
@@ -77,6 +95,10 @@ const SignUp = ({registerUser, error}: PropsFromRedux): JSX.Element => {
             // @ts-ignore
             value={values.password && values.password} />
           </label>
+          {
+            // @ts-ignore
+            errors.password && <p>{errors.password}</p>
+          }
           <button className="cta" type="submit">Create Account</button>
           <p>{error && error.signUpError}</p>
         </form>

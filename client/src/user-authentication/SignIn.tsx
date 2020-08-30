@@ -30,18 +30,23 @@ const SignIn = ({signIn, error}:PropsFromRedux) => {
     email: '',
     password: ''
   };
+
+  const requiredFields = {
+    email: true,
+    password: true
+  }
   const submit = () => {
     console.log('submitted', values);
     signIn(values, history)
   }
-  const { values, handleChange, handleSubmit } = useForm(userCredentials, submit);
+  const { values, handleChange, handleSubmit, errors } = useForm(userCredentials, requiredFields, submit);
   console.log('values:', values)
 
   return (
     <div className="sign-in">
       <h2>Sign In</h2>
       <div className="form-container">
-        <form className="form" onSubmit={handleSubmit}>
+        <form className="form" noValidate onSubmit={handleSubmit}>
           <label htmlFor="email">
             <h4>Email</h4>
             <input className="input-field" 
@@ -50,6 +55,10 @@ const SignIn = ({signIn, error}:PropsFromRedux) => {
             // @ts-ignore
             value={values.email && values.email} />
           </label>
+          {
+            // @ts-ignore
+            errors.email && <p>{errors.email}</p>
+          }
           <label htmlFor="password">
             <h4>Password</h4>
             <input className="input-field" 
@@ -58,6 +67,10 @@ const SignIn = ({signIn, error}:PropsFromRedux) => {
             // @ts-ignore
             value={values.password && values.password} />
           </label>
+          {
+            // @ts-ignore
+            errors.password && <p>{errors.password}</p>
+          }
           <button className="cta" type="submit">Sign In</button>
           <p>{error && error.signInError}</p>
         </form>
