@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { AppState } from '../store';
 import { signIn } from '../store/auth/actions';
@@ -36,11 +36,9 @@ const SignIn = ({signIn, error}:PropsFromRedux) => {
     password: true
   }
   const submit = () => {
-    console.log('submitted', values);
-    signIn(values, history)
+    signIn(values, history);
   }
   const { values, handleChange, handleSubmit, errors } = useForm(userCredentials, requiredFields, submit);
-  console.log('values:', values)
 
   return (
     <div className="sign-in">

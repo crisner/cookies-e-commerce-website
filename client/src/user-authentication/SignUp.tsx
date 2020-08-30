@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { AppState } from '../store';
@@ -38,11 +38,10 @@ const SignUp = ({registerUser, error}: PropsFromRedux): JSX.Element => {
     password: true
   };
   const submit = () => {
-    console.log('submitted', values)
-    // registerUser(signupInfo, history);
+    registerUser(values, history);
   }
   const { values, handleChange, handleSubmit, errors } = useForm(signupInfo, requiredInfo, submit);
-  console.log('values signup:', values)
+
   return (
     <div className="signup">
       <h2>New User</h2>
