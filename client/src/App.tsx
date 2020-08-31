@@ -17,6 +17,7 @@ import SignUp from './user-authentication/SignUp';
 import UserProfile from './user/Profile';
 import UserProfileEdit from './user/EditProfile';
 import Cart from './cart/Cart';
+import NotFound from './NotFound';
 import './stylesheet/main.css';
 
 const App = (): JSX.Element => {
@@ -58,9 +59,10 @@ const App = (): JSX.Element => {
         <Route path="/cookies">
           <Products box={true} />
         </Route>
-        <Route path="/">
+        <Route path="/" exact>
           <Home />
         </Route>
+        <Route component={NotFound} />
       </Switch>
       <Footer />
     </Router>
