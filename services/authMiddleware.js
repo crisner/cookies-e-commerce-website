@@ -8,15 +8,14 @@ const isAuth = (req, res, next) => {
       }
       
       if (!user) {
-        res.status(404);
-        return res.redirect('/login');
+        return res.status(404).send({error: 'unauthenticated'});
       }
 
       // Check if user has a valid token
       if (user) {
         const token = user.tokens.filter(token => token.token === req.cookies.jwt)
         if (token && token.length === 0) {
-          return res.status(401).redirect('/login');
+          return res.status(401).send({error: 'unauthenticated'});
         }
       }
 
