@@ -68,3 +68,14 @@ export const logOut = () => async dispatch => {
     });
   }
 }
+
+export const isAuthenticated = () => async dispatch => {
+  try {
+    const res = await axios.get('/api/user');
+    dispatch({ type: AUTHENTICATED });
+  } catch(error) {
+    dispatch({
+      type: UNAUTHENTICATED
+    });
+  }
+}
