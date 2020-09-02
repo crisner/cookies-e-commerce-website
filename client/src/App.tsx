@@ -5,7 +5,8 @@ import {
   Route
 } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchUser } from './store/auth/actions';
+import { AppState } from './store';
+import { isAuthenticated } from './store/auth/actions';
 import Header from './Header';
 import Footer from './Footer';
 import Home from './main/Home';
@@ -22,10 +23,10 @@ import './stylesheet/main.css';
 
 const App = (): JSX.Element => {
   const dispatch = useDispatch();
-  const authState = useSelector(state => state) || {};
-
+  const authenticationStatus = useSelector((state: AppState) => state.auth.isAuthenticated);
+  
   useEffect(() => {
-    dispatch(fetchUser());
+    dispatch(isAuthenticated());
   }, [])
 
   return (
