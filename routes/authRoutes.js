@@ -129,10 +129,10 @@ module.exports = (app) => {
   })
 
   app.get('/api/user', isAuth, (req, res) => {
-    if(!req.user) {
-      return res.status(401).send({ error: 'Please sign in to proceed.' });
-    }
-    res.status(200).redirect('/profile');
+      if(!req.user) {
+        return res.status(401).json({ error: 'Please sign in to proceed.' });
+      }
+      res.status(200).send();
   })
 
   // Routes to connect strategies to user account if logged in
