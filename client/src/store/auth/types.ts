@@ -1,5 +1,5 @@
 export interface AuthState {
-  loggedIn: boolean
+  isAuthenticated: boolean
   loading: boolean
   user: object
   error: object

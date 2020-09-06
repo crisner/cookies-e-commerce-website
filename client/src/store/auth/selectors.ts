@@ -1,6 +1,6 @@
 import { AppState } from '../';
 
-export const isLogged = (store: AppState) => store.auth.loggedIn;
+export const isLogged = (store: AppState) => store.auth.isAuthenticated;
 
 export const isLoading = (store: AppState) => store.auth.loading;
 

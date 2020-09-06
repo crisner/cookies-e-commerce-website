@@ -39,7 +39,7 @@ const Header = (props: PropsFromRedux): JSX.Element => {
           <Link to="/cart"><FontAwesomeIcon icon={faShoppingBag} /></Link>
         </div>
       </div>
-      {dropdown ? (!props.auth.loggedIn ? (
+      {dropdown ? (!props.auth.isAuthenticated ? (
       <Dropdown id={'user-signin'} data={{'Sign In': '/auth/login'}} />
       ) : (
         <Dropdown id={'user-menu'} logOut={props.logOut} data={{
