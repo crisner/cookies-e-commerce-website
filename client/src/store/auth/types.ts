@@ -5,6 +5,11 @@ export interface AuthState {
   error: object
 }
 
+interface RegisterUserAction {
+  type: typeof REGISTER | typeof REGISTER_ERROR,
+  payload: any | { message: string }
+}
+
 interface SignInAction {
   type: typeof AUTHENTICATED | typeof AUTHENTICATION_ERROR,
   payload: undefined | { message: string }
@@ -25,4 +30,4 @@ export const GET_ERRORS = "GET_ERRORS";
 export const USER_LOADING = "USER_LOADING";
 export const CURRENT_USER = "CURRENT_USER";
 
-export type AuthActionTypes = SignInAction | LogOutAction;
+export type AuthActionTypes = RegisterUserAction | SignInAction | LogOutAction;
